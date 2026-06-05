@@ -1,0 +1,6 @@
+{
+  "name": "Circle",
+  "description": "An elegant, minimalist microblogging and social networking platform blending tags, rich media, and follower networks, backed by Firebase.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,271 @@
+{
+  "entities": {
+    "Profile": {
+      "title": "Profile",
+      "description": "User profile with customizable information and configuration",
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Unique username selected by user"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User's public display name"
+        },
+        "avatarUrl": {
+          "type": "string",
+          "description": "URL to the user's avatar image"
+        },
+        "bio": {
+          "type": "string",
+          "description": "Short public biography"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "username",
+        "displayName",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Memo": {
+      "title": "Memo",
+      "description": "A microblog post consisting of text, optional rich media, visibility tags, and counters",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "mediaUrls": {
+          "type": "array"
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "followers",
+            "private"
+          ]
+        },
+        "tags": {
+          "type": "array"
+        },
+        "likesCount": {
+          "type": "number"
+        },
+        "commentsCount": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "userId",
+        "username",
+        "displayName",
+        "content",
+        "mediaUrls",
+        "visibility",
+        "tags",
+        "likesCount",
+        "commentsCount",
+        "createdAt"
+      ]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "A simplified comment nested under a specific memo",
+      "type": "object",
+      "properties": {
+        "memoId": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "memoId",
+        "userId",
+        "username",
+        "displayName",
+        "content",
+        "createdAt"
+      ]
+    },
+    "Like": {
+      "title": "Like",
+      "description": "A document indicating a like by a user on a given memo",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "userId",
+        "createdAt"
+      ]
+    },
+    "Follow": {
+      "title": "Follow",
+      "description": "A document representing a follower/following link",
+      "type": "object",
+      "properties": {
+        "followerId": {
+          "type": "string"
+        },
+        "followingId": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "followerId",
+        "followingId",
+        "createdAt"
+      ]
+    },
+    "UsernameClaims": {
+      "title": "UsernameClaims",
+      "description": "Unique username claims mapping slug to userId and legacy redirect indicators",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "isRedirect": {
+          "type": "boolean"
+        },
+        "redirectTo": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "userId",
+        "createdAt"
+      ]
+    },
+    "Bookmark": {
+      "title": "Bookmark",
+      "description": "A saved post reference to private collection under a user",
+      "type": "object",
+      "properties": {
+        "memoId": { "type": "string" },
+        "userId": { "type": "string" },
+        "username": { "type": "string" },
+        "displayName": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "content": { "type": "string" },
+        "mediaUrls": { "type": "array" },
+        "visibility": { "type": "string" },
+        "tags": { "type": "array" },
+        "likesCount": { "type": "number" },
+        "commentsCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "bookmarkedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["memoId", "createdAt", "bookmarkedAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "A notification alert for mentions, likes, or comments",
+      "type": "object",
+      "properties": {
+        "senderId": { "type": "string" },
+        "senderUsername": { "type": "string" },
+        "senderDisplayName": { "type": "string" },
+        "senderAvatarUrl": { "type": "string" },
+        "type": { "type": "string" },
+        "memoId": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["senderId", "senderUsername", "senderDisplayName", "senderAvatarUrl", "type", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "Profile",
+      "description": "User profiles indexed by UID"
+    },
+    "users/{userId}/bookmarks/{memoId}": {
+      "schema": "Bookmark",
+      "description": "User's bookmarked memos, accessible only by the user"
+    },
+    "users/{userId}/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "User's notifications, readable and deletable by the user, writable by anyone to create logs"
+    },
+    "usernames/{username}": {
+      "schema": "UsernameClaims",
+      "description": "Uniqueness registry mapping slug to user UID and legacy redirects"
+    },
+    "memos/{memoId}": {
+      "schema": "Memo",
+      "description": "Shared or private memos"
+    },
+    "memos/{memoId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Subset of comments related to a memo"
+    },
+    "memos/{memoId}/likes/{userId}": {
+      "schema": "Like",
+      "description": "Set of users who liked this memo"
+    },
+    "follows/{followId}": {
+      "schema": "Follow",
+      "description": "Follow links formatted as followerId_followingId"
+    }
+  }
+}

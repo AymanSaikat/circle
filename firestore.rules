@@ -1,0 +1,223 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 1. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Hardened Global Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerified() {
+      return isSignedIn();
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // --- Validation Helpers for Entities (Anti-Update-Gaps) ---
+
+    function isValidProfile(data) {
+      return data.keys().hasAll(['username', 'displayName', 'avatarUrl', 'bio', 'createdAt', 'updatedAt']) 
+        && data.keys().size() == 6
+        && data.username is string && data.username.size() >= 2 && data.username.size() <= 30
+        && data.displayName is string && data.displayName.size() > 0 && data.displayName.size() <= 50
+        && data.avatarUrl is string && data.avatarUrl.size() <= 1000
+        && data.bio is string && data.bio.size() <= 500
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidMemo(data) {
+      return data.keys().hasAll(['userId', 'username', 'displayName', 'avatarUrl', 'content', 'mediaUrls', 'visibility', 'tags', 'likesCount', 'commentsCount', 'createdAt'])
+        && (data.keys().size() == 11 || (data.keys().size() == 12 && data.keys().hasAll(['publishAt'])))
+        && data.userId == request.auth.uid
+        && data.username is string && data.username.size() > 0
+        && data.displayName is string && data.displayName.size() > 0
+        && data.avatarUrl is string
+        && data.content is string && data.content.size() <= 10000
+        && data.mediaUrls is list && data.mediaUrls.size() <= 10
+        && data.visibility in ['public', 'followers', 'private']
+        && data.tags is list && data.tags.size() <= 20
+        && data.likesCount is int && data.likesCount >= 0
+        && data.commentsCount is int && data.commentsCount >= 0
+        && data.createdAt is timestamp
+        && (!data.keys().hasAll(['publishAt']) || data.publishAt is timestamp);
+    }
+
+    function isValidComment(data) {
+      return data.keys().hasAll(['memoId', 'userId', 'username', 'displayName', 'avatarUrl', 'content', 'createdAt'])
+        && data.keys().size() == 7
+        && data.userId == request.auth.uid
+        && data.memoId is string && data.memoId.size() > 0
+        && data.content is string && data.content.size() > 0 && data.content.size() <= 2000
+        && data.createdAt is timestamp;
+    }
+
+    function isValidLike(data) {
+      return data.keys().hasAll(['userId', 'createdAt'])
+        && data.keys().size() == 2
+        && data.userId == request.auth.uid
+        && data.createdAt is timestamp;
+    }
+
+    function isValidFollow(data) {
+      return data.keys().hasAll(['followerId', 'followingId', 'createdAt'])
+        && data.keys().size() == 3
+        && data.followerId == request.auth.uid
+        && data.followerId != data.followingId
+        && data.followingId is string && data.followingId.size() > 0
+        && data.createdAt is timestamp;
+    }
+
+    function isValidUsernameClaim(data) {
+      return data.keys().hasAll(['userId', 'createdAt'])
+        && data.keys().size() <= 4
+        && data.userId is string && data.userId.size() > 0
+        && data.createdAt is timestamp;
+    }
+
+    // --- Specific Match Rules ---
+
+    // 2. User Profiles
+    match /users/{userId} {
+      allow get: if isSignedIn();
+      allow list: if isSignedIn();
+      allow create: if isVerified() 
+        && userId == request.auth.uid 
+        && isValidProfile(incoming())
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      
+      allow update: if isVerified()
+        && userId == request.auth.uid
+        && isValidProfile(incoming())
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'avatarUrl', 'bio', 'username', 'updatedAt']);
+      
+      allow delete: if false; // Profiles cannot be hard-deleted via client
+
+      // Bookmarks Subcollection
+      match /bookmarks/{memoId} {
+        allow read, write: if isVerified() && userId == request.auth.uid;
+      }
+
+      // Notifications Subcollection
+      match /notifications/{notificationId} {
+        allow read, delete: if isVerified() && userId == request.auth.uid;
+        allow create: if isVerified(); // Anyone who is signed in can send a notification
+      }
+    }
+
+    // usernames Registry (Uniqueness constraints & Custom URL mapping)
+    match /usernames/{username} {
+      allow get: if isSignedIn();
+      allow list: if isSignedIn();
+      allow create: if isVerified()
+        && isValidId(username)
+        && isValidUsernameClaim(incoming())
+        && incoming().userId == request.auth.uid
+        && incoming().createdAt == request.time;
+      allow update: if isVerified()
+        && existing().userId == request.auth.uid
+        && incoming().userId == request.auth.uid
+        && incoming().diff(existing()).affectedKeys().hasOnly(['isRedirect', 'redirectTo', 'updatedAt']);
+      allow delete: if isVerified() && existing().userId == request.auth.uid;
+    }
+
+    // 3. Memos
+    match /memos/{memoId} {
+      allow get: if isSignedIn() && (
+        existing().visibility == 'public' ||
+        existing().userId == request.auth.uid ||
+        existing().visibility == 'followers' // Follower checks handled or post details read
+      );
+      
+      allow list: if isSignedIn() && (
+        resource.data.visibility == 'public' ||
+        resource.data.userId == request.auth.uid ||
+        resource.data.visibility == 'followers'
+      );
+
+      allow create: if isVerified()
+        && isValidId(memoId)
+        && isValidMemo(incoming())
+        && incoming().createdAt == request.time;
+
+      allow update: if isVerified()
+        && (
+          // Action 1: Owner updates content/media/visibility/tags
+          (existing().userId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['content', 'mediaUrls', 'visibility', 'tags'])) ||
+          // Action 2: Any verified user updates likesCount
+          incoming().diff(existing()).affectedKeys().hasOnly(['likesCount']) ||
+          // Action 3: Any verified user updates commentsCount
+          incoming().diff(existing()).affectedKeys().hasOnly(['commentsCount'])
+        );
+
+      allow delete: if isVerified() && existing().userId == request.auth.uid;
+
+      // 4. Comments Subcollection
+      match /comments/{commentId} {
+        allow read: if isSignedIn();
+        allow create: if isVerified()
+          && isValidId(commentId)
+          && isValidComment(incoming())
+          && incoming().createdAt == request.time;
+        allow update: if false; // Comments are immutable/delete only
+        allow delete: if isVerified() && (
+          existing().userId == request.auth.uid || 
+          get(/databases/$(database)/documents/memos/$(memoId)).data.userId == request.auth.uid
+        );
+      }
+
+      // 5. Likes Subcollection
+      match /likes/{userId} {
+        allow read: if isSignedIn();
+        allow create, delete: if isVerified() && userId == request.auth.uid;
+      }
+    }
+
+    // 6. Follow Links
+    match /follows/{followId} {
+      allow read: if isSignedIn();
+      allow create: if isVerified()
+        && isValidId(followId)
+        && followId == (request.auth.uid + "_" + incoming().followingId)
+        && isValidFollow(incoming())
+        && incoming().createdAt == request.time;
+      allow update: if false; // Follow relationships cannot be updated, only deleted
+      allow delete: if isVerified() && existing().followerId == request.auth.uid;
+    }
+
+    // 7. Direct Messages
+    match /messages/{messageId} {
+      allow read: if isSignedIn() && (
+        resource.data.senderId == request.auth.uid || 
+        resource.data.receiverId == request.auth.uid ||
+        request.auth.uid in resource.data.participants
+      );
+      allow create: if isVerified()
+        && isValidId(messageId)
+        && incoming().senderId == request.auth.uid
+        && incoming().createdAt == request.time
+        && incoming().text is string && incoming().text.size() > 0 && incoming().text.size() <= 2000
+        && incoming().participants is list && request.auth.uid in incoming().participants;
+      allow update: if false; // Messages are currently immutable
+      allow delete: if isVerified() && existing().senderId == request.auth.uid;
+    }
+  }
+}
