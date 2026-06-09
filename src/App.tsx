@@ -300,12 +300,12 @@ function AppContent() {
       
       {/* 1. Main Navigation Sidebar Panel */}
       <Navbar
-        currentTab={isFeed ? 'feed' : isPrivate ? 'private' : isSearch ? 'search' : isMessages ? 'inbox' : isBookmarks ? 'bookmarks' : 'profile'}
+        currentTab={isFeed ? 'feed' : isPrivate ? 'private' : isSearch ? 'search' : isMessages ? 'messages' : isBookmarks ? 'bookmarks' : 'profile'}
         setCurrentTab={(tab) => {
           if (tab === 'feed') navigate('/feed');
           else if (tab === 'private') navigate('/private');
           else if (tab === 'search') navigate('/search');
-          else if (tab === 'inbox') navigate('/inbox');
+          else if (tab === 'messages') navigate('/messages');
           else if (tab === 'bookmarks') navigate('/bookmarks');
           else if (tab === 'profile') {
             if (profile) navigate('/' + profile.username);

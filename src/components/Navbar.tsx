@@ -130,14 +130,14 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             <button
-              id="desktop-nav-inbox"
-              onClick={() => handleTabClick('inbox')}
-              className={`${getButtonClasses(currentTab === 'inbox')} relative`}
-              title="Inbox"
+              id="desktop-nav-messages"
+              onClick={() => handleTabClick('messages')}
+              className={`${getButtonClasses(currentTab === 'messages')} relative`}
+              title="Messages"
             >
               <MessageSquare className="w-[17px] h-[17px] transition-transform group-hover:scale-105 duration-200 shrink-0" />
               <div className="hidden xl:flex flex-1 items-center justify-between">
-                <span>Inbox</span>
+                <span>Messages</span>
                 {/* Dynamic vibrant red notification badge */}
                 <div className="bg-red-500 dark:bg-red-600 text-white font-mono text-[9px] font-extrabold px-1.5 py-0.5 rounded-full leading-none flex items-center justify-center animate-pulse shadow-xs">
                   4
@@ -271,14 +271,14 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
 
         <button
-          id="mobile-tab-inbox"
-          onClick={() => handleTabClick('inbox')}
+          id="mobile-tab-messages"
+          onClick={() => handleTabClick('messages')}
           className={`relative flex flex-col items-center justify-center p-2 rounded-xl transition-all ${
-            currentTab === 'inbox' ? 'text-zinc-950 dark:text-white font-extrabold scale-110' : 'text-zinc-400 hover:text-zinc-650'
+            currentTab === 'messages' ? 'text-zinc-950 dark:text-white font-extrabold scale-110' : 'text-zinc-400 hover:text-zinc-650'
           }`}
           style={{ minHeight: '44px', minWidth: '44px' }}
-          title="Inbox"
-          aria-label="Inbox"
+          title="Messages"
+          aria-label="Messages"
         >
           <MessageSquare className="w-5 h-5" />
           {/* Dynamic dynamic tiny notification dot on mobile */}
