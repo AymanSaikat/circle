@@ -105,7 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <h1 className="text-sm font-extrabold font-sans tracking-widest text-zinc-900 dark:text-zinc-50 uppercase">
                 Circle Media
               </h1>
-              <p className="text-[10px] text-zinc-450 dark:text-zinc-500 font-mono tracking-tighter leading-none mt-0.5">SECURE SOCIAL PROTOCOL</p>
+              <p className="text-[9px] text-zinc-400 dark:text-zinc-500 font-bold tracking-wider uppercase mt-0.5">SHARE WHAT'S REAL</p>
             </div>
           </div>
 
@@ -117,7 +117,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={getButtonClasses(currentTab === 'feed' && !selectedTag)}
             >
               <Home className="w-[17px] h-[17px] transition-transform group-hover:scale-105 duration-200" />
-              <span>Overview / Home</span>
+              <span>Feed</span>
             </button>
 
             <button
@@ -136,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <MessageSquare className="w-[17px] h-[17px] transition-transform group-hover:scale-105 duration-200" />
               <div className="flex-1 flex items-center justify-between">
-                <span>Messages / Inbox</span>
+                <span>Inbox</span>
                 {/* Dynamic vibrant red notification badge */}
                 <div className="bg-red-500 dark:bg-red-600 text-white font-mono text-[9px] font-extrabold px-1.5 py-0.5 rounded-full leading-none flex items-center justify-center animate-pulse shadow-xs">
                   4

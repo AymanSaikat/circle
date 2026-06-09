@@ -324,7 +324,7 @@ export const Login: React.FC = () => {
 
         {/* Humble Footer info */}
         <div className="mt-8 flex items-center gap-2 text-[11px] text-zinc-400 dark:text-zinc-500 font-medium font-sans select-none">
-          <span>Circle • Secure Protocol</span>
+          <span>Circle • Connect beautifully</span>
         </div>
       </div>
 
@@ -362,9 +362,9 @@ export const Login: React.FC = () => {
           </div>
         </div>
         
-        <div className="relative z-10 font-mono text-[10px] tracking-widest text-zinc-500 uppercase flex items-center justify-between mt-auto">
-          <span>Encrypted Sync</span>
-          <span className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"/> All Systems Operational</span>
+        <div className="relative z-10 font-sans text-[10px] tracking-wider text-zinc-500 uppercase flex items-center justify-between mt-auto">
+          <span>Clean & Private</span>
+          <span className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500"/> Connect with friends</span>
         </div>
       </div>
     </div>

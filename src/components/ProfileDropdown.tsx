@@ -99,8 +99,8 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
           >
             {/* Header: Identity Info */}
             <div className="px-2 py-1.5 border-b border-zinc-100 dark:border-zinc-900 flex flex-col gap-0.5">
-              <span className="text-[9px] text-zinc-400 dark:text-zinc-500 font-mono tracking-widest font-black uppercase block leading-none">
-                SECURE IDENTITY NODE
+              <span className="text-[9px] text-zinc-400 dark:text-zinc-500 font-bold tracking-wider uppercase block leading-none">
+                SIGNED IN AS
               </span>
               <span className="text-[11px] font-black tracking-tight truncate block text-zinc-900 dark:text-zinc-100 mt-1">
                 {profile.displayName}
@@ -182,21 +182,6 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
               </button>
             </div>
 
-            {/* Node metadata segment Diagnostics block */}
-            <div className="p-2.5 bg-zinc-50/50 dark:bg-zinc-900/45 rounded-xl border border-zinc-150 dark:border-zinc-900/60 flex flex-col gap-1 text-[9px] font-mono select-none">
-              <div className="flex items-center justify-between text-zinc-400 dark:text-zinc-500">
-                <span>Protocol Sync</span>
-                <span className="text-[#1877f2] font-black">v1.0.5</span>
-              </div>
-              <div className="flex items-center justify-between text-zinc-400 dark:text-zinc-500">
-                <span>Network Node</span>
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                  <span className="text-zinc-700 dark:text-zinc-300 font-bold">Synchronized</span>
-                </div>
-              </div>
-            </div>
-
             {/* Bottom Actions segment (Logout action) */}
             <div className="flex flex-col gap-1 border-t border-zinc-100 dark:border-zinc-900 pt-2">
               <button
@@ -206,7 +191,7 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
                 className="flex items-center gap-2.5 w-full text-left px-2.5 py-2 text-xs font-bold text-red-500 dark:text-red-400 hover:text-red-650 dark:hover:text-red-350 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-xl transition-all cursor-pointer"
               >
                 <LogOut className="w-[15px] h-[15px]" />
-                <span>Secure Log Out</span>
+                <span>Log Out</span>
               </button>
             </div>
           </motion.div>

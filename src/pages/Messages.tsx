@@ -200,7 +200,7 @@ export const Messages: React.FC = () => {
             <MessageSquare className="w-4 h-4 text-zinc-900 dark:text-zinc-105" />
             <span>Circle Messenger</span>
           </h3>
-          <p className="text-zinc-500 dark:text-zinc-400 text-[11px] leading-relaxed">Secure 1-on-1 private messaging nodes</p>
+          <p className="text-zinc-500 dark:text-zinc-400 text-[11px] leading-relaxed">Secure 1-on-1 private messaging</p>
         </div>
 
         <div className="flex-1 overflow-y-auto p-2 space-y-1">
