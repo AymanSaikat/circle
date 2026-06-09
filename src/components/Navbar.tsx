@@ -91,32 +91,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
 
-          {/* User ID Card Badge */}
-          {profile ? (
-            <div className="bg-zinc-50/50 dark:bg-zinc-900/30 border border-zinc-200/65 dark:border-zinc-850 rounded-2xl p-3.5 flex flex-col gap-2.5 hover:shadow-sm transition-all duration-300">
-              <div className="flex items-center gap-3">
-                <img
-                  src={profile.avatarUrl}
-                  alt={profile.displayName}
-                  className="w-10 h-10 rounded-full object-cover border border-zinc-200 dark:border-zinc-800 shadow-xs bg-zinc-100 dark:bg-zinc-850"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="flex-1 min-w-0">
-                  <p className="font-extrabold text-xs truncate text-zinc-900 dark:text-zinc-100 tracking-tight">
-                    {profile.displayName}
-                  </p>
-                  <p className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono truncate mt-0.5">
-                    @{profile.username}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="bg-zinc-50 dark:bg-zinc-900/20 p-3 rounded-2xl border border-dashed border-zinc-200 dark:border-zinc-800 text-center">
-              <p className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono uppercase tracking-wide">Syncing Session...</p>
-            </div>
-          )}
-
           {/* Vertically Stacked Navigation Options with ample negative space */}
           <nav className="flex flex-col gap-1.5">
             <button
@@ -207,7 +181,32 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Bottom Section - isolated with ample negative space */}
-        <div className="relative pt-6 border-t border-zinc-150 dark:border-zinc-900">
+        <div className="relative pt-6 border-zinc-150 dark:border-zinc-900 flex flex-col gap-4">
+          
+          {profile ? (
+            <div className="bg-zinc-50/50 dark:bg-zinc-900/30 border border-zinc-200/65 dark:border-zinc-850 rounded-2xl p-3.5 flex flex-col gap-2.5 hover:shadow-sm transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <img
+                  src={profile.avatarUrl}
+                  alt={profile.displayName}
+                  className="w-10 h-10 rounded-full object-cover border border-zinc-200 dark:border-zinc-800 shadow-xs bg-zinc-100 dark:bg-zinc-850"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="flex-1 min-w-0">
+                  <p className="font-extrabold text-xs truncate text-zinc-900 dark:text-zinc-100 tracking-tight">
+                    {profile.displayName}
+                  </p>
+                  <p className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono truncate mt-0.5">
+                    @{profile.username}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-zinc-50 dark:bg-zinc-900/20 p-3 rounded-2xl border border-dashed border-zinc-200 dark:border-zinc-800 text-center">
+              <p className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono uppercase tracking-wide">Syncing Session...</p>
+            </div>
+          )}
           
           {/* Embedded "More" Menu Dropdown Popover */}
           {showMoreMenu && (

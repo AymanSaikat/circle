@@ -95,23 +95,32 @@ function DynamicProfileLoader({
 
   if (error || !resolvedUserId) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center p-8 text-center bg-zinc-50 select-none">
-        <div className="w-16 h-16 rounded-2xl bg-zinc-100 flex items-center justify-center text-zinc-400 text-3xl font-bold mb-4 font-sans border border-zinc-200 shadow-xs">
-          ?
+      <div className="flex-1 flex flex-col items-center justify-center p-8 text-center bg-zinc-50 dark:bg-zinc-950 select-none h-full">
+        <div className="w-20 h-20 rounded-3xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-300 dark:text-zinc-700 text-4xl font-black mb-6 font-sans border border-zinc-200 dark:border-zinc-800 shadow-inner">
+          404
         </div>
-        <h2 className="text-base font-bold text-zinc-900 tracking-tight font-sans">
-          Profile Not Found
+        <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-50 tracking-tight font-sans">
+          Page Not Found
         </h2>
-        <p className="text-zinc-500 text-xs mt-1.5 max-w-sm leading-relaxed">
-          The username "@{username}" does not exist in our registries or has been released. Please verify the URL slug.
+        <p className="text-zinc-500 dark:text-zinc-400 text-sm mt-3 max-w-sm leading-relaxed">
+          The page or user profile you are trying to reach does not exist or has been removed. Please verify the URL.
         </p>
-        <button
-          id="btn-not-found-back"
-          onClick={() => navigate('/feed')}
-          className="mt-6 bg-zinc-900 hover:bg-zinc-805 text-white font-semibold text-xs py-2 px-5 rounded-xl shadow-xs transition-all cursor-pointer hover:shadow-md"
-        >
-          Back to Timeline Feed
-        </button>
+        <div className="mt-8 flex items-center gap-3">
+          <button
+            id="btn-not-found-back"
+            onClick={() => navigate('/feed')}
+            className="bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-805 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 font-bold text-xs py-3 px-6 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-all cursor-pointer hover:shadow-md active:scale-95"
+          >
+            Back to Home
+          </button>
+          <button
+            id="btn-not-found-support"
+            onClick={() => alert("Support contact initiated.")}
+            className="bg-white dark:bg-zinc-900 border border-zinc-250 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold text-xs py-3 px-6 rounded-xl transition-all cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-850 active:scale-95"
+          >
+            Contact Support
+          </button>
+        </div>
       </div>
     );
   }
@@ -129,6 +138,19 @@ function AppContent() {
   const { path, navigate } = useRouter();
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [showCookieBanner, setShowCookieBanner] = useState(() => {
+    return localStorage.getItem('cookie-consent') === null;
+  });
+
+  const handleAcceptCookies = () => {
+    localStorage.setItem('cookie-consent', 'accepted');
+    setShowCookieBanner(false);
+  };
+
+  const handleRejectCookies = () => {
+    localStorage.setItem('cookie-consent', 'rejected');
+    setShowCookieBanner(false);
+  };
 
   // Auto-redirect to claimed profile username when visiting raw profile
   useEffect(() => {
@@ -140,16 +162,79 @@ function AppContent() {
   // Sync state loader
   if (loading) {
     return (
-      <div className="min-h-[100dvh] bg-zinc-50 dark:bg-zinc-950 flex flex-col items-center justify-center gap-4 text-center">
-        <div className="relative">
-          <div className="w-12 h-12 rounded-full border-4 border-zinc-200 dark:border-zinc-800 border-t-zinc-900 dark:border-t-white animate-spin" />
-          <div className="absolute inset-0 flex items-center justify-center font-bold text-zinc-900 dark:text-zinc-100 text-xs text-center">
-            C
+      <div className="h-[100dvh] min-h-[100dvh] bg-zinc-50 dark:bg-zinc-950 flex flex-col md:flex-row overflow-hidden select-none">
+        
+        {/* Sidebar Skeleton (Desktop only) */}
+        <div className="hidden md:flex w-64 flex-col bg-white dark:bg-zinc-950 border-r border-zinc-150 dark:border-zinc-900 h-screen p-6 shrink-0 justify-between animate-pulse">
+          <div className="flex flex-col gap-10">
+            {/* Logo area */}
+            <div className="flex items-center gap-3 px-2">
+              <div className="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-800" />
+              <div className="flex flex-col gap-1.5">
+                <div className="w-24 h-4 rounded bg-zinc-200 dark:bg-zinc-800" />
+                <div className="w-32 h-2.5 rounded bg-zinc-150 dark:bg-zinc-850" />
+              </div>
+            </div>
+            {/* Nav items */}
+            <div className="flex flex-col gap-3 mt-4">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="flex items-center gap-3 px-4 py-3 rounded-xl">
+                  <div className="w-4 h-4 rounded-full bg-zinc-200 dark:bg-zinc-800 shrink-0" />
+                  <div className="w-32 h-3 rounded bg-zinc-200 dark:bg-zinc-800" />
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Bottom profile area */}
+          <div className="pt-6 border-t border-zinc-150 dark:border-zinc-900 mt-auto">
+             <div className="bg-zinc-100 dark:bg-zinc-900 rounded-2xl p-3.5 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-zinc-300 dark:bg-zinc-800 shrink-0" />
+                <div className="flex flex-col gap-1.5 flex-1">
+                  <div className="w-20 h-3 rounded bg-zinc-300 dark:bg-zinc-700" />
+                  <div className="w-16 h-2 rounded bg-zinc-200 dark:bg-zinc-800" />
+                </div>
+             </div>
           </div>
         </div>
-        <div>
-          <p className="text-zinc-900 dark:text-zinc-100 text-sm font-semibold">Authorizing secure node...</p>
-          <p className="text-zinc-400 dark:text-zinc-500 text-[10px] font-mono mt-1">Please wait while configuration boots up</p>
+
+        {/* Main Feed Header / Mobile Top Bar Skeleton */}
+        <div className="flex-1 flex flex-col w-full h-full animate-pulse">
+          <div className="md:hidden flex items-center justify-between bg-white dark:bg-zinc-950 border-b border-zinc-150 dark:border-zinc-900 px-4 py-3">
+             <div className="flex items-center gap-2.5">
+               <div className="w-7 h-7 rounded-lg bg-zinc-200 dark:bg-zinc-800" />
+               <div className="w-16 h-3 rounded bg-zinc-200 dark:bg-zinc-800" />
+             </div>
+             <div className="w-6 h-6 rounded bg-zinc-200 dark:bg-zinc-800" />
+          </div>
+
+          <div className="max-w-2xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
+            {/* Main feed cards skeleton placeholders */}
+            {[1, 2].map((i) => (
+              <div key={i} className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 shadow-xs select-none">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-850" />
+                    <div className="flex flex-col gap-2">
+                      <div className="h-3.5 w-28 bg-zinc-200 dark:bg-zinc-800 rounded" />
+                      <div className="h-3 w-36 bg-zinc-200 dark:bg-zinc-850 rounded" />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-5 flex flex-col gap-2.5">
+                  <div className="h-3 w-full bg-zinc-200 dark:bg-zinc-800 rounded" />
+                  <div className="h-3 w-11/12 bg-zinc-200 dark:bg-zinc-800 rounded" />
+                  <div className="h-3 w-4/5 bg-zinc-200 dark:bg-zinc-800 rounded" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile Bottom Tab Bar Skeleton */}
+        <div className="md:hidden flex items-center justify-around bg-white dark:bg-zinc-950 border-t border-zinc-150 dark:border-zinc-900 px-2 py-1.5 pb-safe-bottom absolute bottom-0 w-full animate-pulse">
+           {[1, 2, 3, 4, 5].map((i) => (
+             <div key={i} className="w-5 h-5 rounded bg-zinc-200 dark:bg-zinc-800 m-2" />
+           ))}
         </div>
       </div>
     );
@@ -259,6 +344,41 @@ function AppContent() {
         onClose={() => setIsProfileModalOpen(false)}
         forceOnboarding={needsOnboarding}
       />
+
+      {/* 4. Cookie Banner */}
+      {showCookieBanner && (
+        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-[calc(100%-2rem)] sm:w-80 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-xl p-5 flex flex-col gap-3 z-[100] animate-in slide-in-from-bottom-8 fade-in">
+          <div className="flex items-start justify-between">
+            <h3 className="font-bold text-sm text-zinc-900 dark:text-zinc-50 tracking-tight">Cookie Preferences</h3>
+            <button 
+              onClick={() => setShowCookieBanner(false)}
+              className="text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+            >
+              ✕
+            </button>
+          </div>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-medium">
+            We use cookies to analyze performance and offer a secure, seamless experience.
+          </p>
+          <div className="flex items-center gap-2 mt-2">
+            <button
+              onClick={handleAcceptCookies}
+              className="flex-1 bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 font-bold text-xs py-2 px-4 rounded-xl transition-colors cursor-pointer"
+            >
+              Accept All
+            </button>
+            <button
+              onClick={handleRejectCookies}
+              className="flex-1 bg-white dark:bg-zinc-900 border border-zinc-250 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-850 text-zinc-700 dark:text-zinc-300 font-bold text-xs py-2 px-4 rounded-xl transition-colors cursor-pointer"
+            >
+              Essential Only
+            </button>
+          </div>
+          <p className="text-[10px] text-center text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors mt-1 underline cursor-pointer">
+            Manage Settings
+          </p>
+        </div>
+      )}
     </div>
   );
 }
