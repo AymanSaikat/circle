@@ -67,6 +67,8 @@ export const Login: React.FC = () => {
            errorMessage = 'Invalid email or password. Please try again.';
         } else if (errorMessage.includes('auth/email-already-in-use')) {
            errorMessage = 'This email address is already registered. Please sign in instead.';
+        } else if (errorMessage.includes('auth/operation-not-allowed')) {
+           errorMessage = 'Email/Password Authentication is not enabled in your Firebase Console. To enable it:\n1. Open your Firebase Console (console.firebase.google.com)\n2. Navigate to "Authentication" under the Build menu\n3. Click the "Sign-in method" tab\n4. Add "Email/Password" and enable it.\n\nAlternatively, you can sign in instantly using the "Continue with Google" option below.';
         }
       } catch (e) {
         // ignore parse errors
