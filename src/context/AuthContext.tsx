@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
-  signInWithPopup, 
+  signInWithRedirect,
+  getRedirectResult,
   GoogleAuthProvider, 
   signOut, 
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
   updateProfile as updateAuthProfile
 } from 'firebase/auth';
 import { 
@@ -30,6 +32,7 @@ interface AuthContextType {
   signInWithGoogle: () => Promise<void>;
   signUpWithEmail: (email: string, password: string, username: string, displayName: string) => Promise<void>;
   signInWithEmail: (email: string, password: string) => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
   logOut: () => Promise<void>;
   saveProfile: (displayName: string, bio: string, avatarUrl: string, newUsername?: string) => Promise<void>;
   checkUsernameUnique: (username: string) => Promise<boolean>;
@@ -72,6 +75,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   useEffect(() => {
+    // Check for redirect result on mount
+    getRedirectResult(auth).catch((error) => {
+      console.error("Redirect sign-in error:", error);
+    });
+
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
@@ -87,11 +95,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
-      if (result.user) {
-        // Fetch/create profile trigger will occur in the state change or immediately
-        await fetchProfile(result.user.uid);
-      }
+      await signInWithRedirect(auth, provider);
     } catch (error) {
       console.error('Google Auth Error:', error);
       throw error;
@@ -169,6 +173,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(newUser);
     } catch (error: any) {
       console.error('Sign up error:', error);
+      throw error;
+    }
+  };
+
+  const resetPassword = async (email: string) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+      console.error('Password Reset Error:', error);
       throw error;
     }
   };
@@ -326,6 +339,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       signInWithGoogle,
       signUpWithEmail,
       signInWithEmail,
+      resetPassword,
       logOut,
       saveProfile,
       checkUsernameUnique,

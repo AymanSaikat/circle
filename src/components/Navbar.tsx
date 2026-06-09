@@ -406,9 +406,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           )}
         </button>
       </div>
-
-      {/* Helper padding offset spacer for mobile screens so that bottom nav content does not cover articles */}
-      <div className="md:hidden h-16 w-full select-none shrink-0" />
     </>
   );
 };

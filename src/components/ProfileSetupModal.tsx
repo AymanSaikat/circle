@@ -179,8 +179,8 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
 
   if (showCropScreen && imageSrc) {
     return (
-      <div className="fixed inset-0 bg-zinc-950/60 dark:bg-zinc-950/80 backdrop-blur-md flex items-center justify-center p-6 z-50">
-        <div className="w-full max-w-sm bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 shadow-2xl relative flex flex-col select-none">
+      <div className="fixed inset-0 bg-zinc-950/60 dark:bg-zinc-950/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 z-[60]">
+        <div className="w-full max-w-sm max-h-[100dvh] overflow-y-auto bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl relative flex flex-col select-none pb-safe-bottom">
           <div className="flex flex-col gap-1 mb-4 text-center">
             <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-50">Crop Profile Photo</h3>
             <p className="text-[10px] text-zinc-500 dark:text-zinc-400 font-medium">Position and zoom your photo for a perfect circular fit</p>
@@ -258,8 +258,8 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
   }
 
   return (
-    <div className="fixed inset-0 bg-zinc-950/60 dark:bg-zinc-950/80 backdrop-blur-md flex items-center justify-center p-6 z-50">
-      <div className="w-full max-w-sm bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-8 shadow-2xl relative">
+    <div className="fixed inset-0 bg-zinc-950/60 dark:bg-zinc-950/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 z-50">
+      <div className="w-full max-w-sm max-h-[100dvh] overflow-y-auto bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl relative">
         
         {/* Header title */}
         <div className="flex flex-col gap-1 mb-6 text-center">

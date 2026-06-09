@@ -138,7 +138,7 @@ service cloud.firestore {
 
     // usernames Registry (Uniqueness constraints & Custom URL mapping)
     match /usernames/{username} {
-      allow get: if isSignedIn();
+      allow get: if true;
       allow list: if isSignedIn();
       allow create: if isVerified()
         && isValidId(username)

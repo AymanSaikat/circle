@@ -139,6 +139,11 @@ export const Search: React.FC = () => {
   });
 
   const filteredMemos = allMemos.filter(m => {
+    // Permission check for follower-only memos
+    if (m.visibility === 'followers' && m.userId !== user?.uid && !followingIds.has(m.userId)) {
+      return false;
+    }
+
     if (!queryTerm) return true;
     const contentMatch = m.content?.toLowerCase().includes(queryTerm);
     const tagMatch = m.tags?.some(tag => tag.toLowerCase().includes(queryTerm));

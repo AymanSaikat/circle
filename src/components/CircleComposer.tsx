@@ -952,8 +952,13 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
                 </button>
 
                 {showPicker && (
-                  <div className="absolute right-0 bottom-full mb-2 z-55 w-80 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-xl overflow-hidden animate-fade-in flex flex-col pointer-events-auto">
-                    {/* Popover Header */}
+                  <>
+                    <div className="fixed inset-0 z-50 sm:hidden" onClick={() => setShowPicker(false)}/>
+                    <div className="fixed sm:absolute bottom-0 sm:bottom-full left-0 right-0 sm:left-auto sm:right-0 sm:mb-2 z-55 w-full sm:w-80 h-[60vh] sm:h-auto bg-white dark:bg-zinc-950 border-t sm:border border-zinc-200 dark:border-zinc-800 rounded-t-3xl sm:rounded-2xl shadow-[0_-10px_40px_rgba(0,0,0,0.15)] sm:shadow-xl overflow-hidden animate-in slide-in-from-bottom-8 sm:slide-in-from-bottom-0 sm:fade-in sm:zoom-in-95 flex flex-col pointer-events-auto pb-safe-bottom">
+                      {/* Mobile Handle */}
+                      <div className="w-12 h-1 bg-zinc-200 dark:bg-zinc-800 rounded-full mx-auto mt-4 mb-2 sm:hidden shrink-0" />
+                      
+                      {/* Popover Header */}
                     <div className="p-3 border-b border-zinc-155 dark:border-zinc-850 bg-zinc-50/60 dark:bg-zinc-950/40 select-none flex flex-col gap-2">
                       <div className="flex items-center justify-between">
                         <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-mono">Android Emoji Pack</span>
@@ -1061,8 +1066,10 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
                       )}
                     </div>
                   </div>
+                  </>
                 )}
               </div>
+
             </div>
           </>
         ) : (

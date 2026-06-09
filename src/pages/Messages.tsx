@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, MessageSquare, ShieldAlert, Sparkles, User, RefreshCw } from 'lucide-react';
-import { collection, query, where, onSnapshot, addDoc, serverTimestamp, getDocs, orderBy } from 'firebase/firestore';
+import { Send, MessageSquare, ShieldAlert, Sparkles, User, RefreshCw, Trash2 } from 'lucide-react';
+import { collection, query, where, onSnapshot, addDoc, serverTimestamp, getDocs, orderBy, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseClient';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from '../context/RouterContext';
@@ -55,10 +55,24 @@ export const Messages: React.FC = () => {
 
     const loadContacts = async () => {
       try {
+        // Find users the current user is following or is followed by
+        const followingSnap = await getDocs(query(collection(db, 'follows'), where('followerId', '==', user.uid)));
+        const followersSnap = await getDocs(query(collection(db, 'follows'), where('followingId', '==', user.uid)));
+        
+        const connectedUserIds = new Set<string>();
+        followingSnap.forEach(d => connectedUserIds.add(d.data().followingId));
+        followersSnap.forEach(d => connectedUserIds.add(d.data().followerId));
+
+        if (connectedUserIds.size === 0) {
+          setAllUsers([]);
+          setLoading(false);
+          return;
+        }
+
         const snap = await getDocs(collection(db, 'users'));
         const list: UserProfile[] = [];
         snap.forEach(d => {
-          if (d.id !== user.uid) {
+          if (d.id !== user.uid && connectedUserIds.has(d.id)) {
             list.push({ id: d.id, ...d.data() } as UserProfile);
           }
         });
@@ -169,8 +183,16 @@ export const Messages: React.FC = () => {
     }
   };
 
+  const handleDeleteMessage = async (msgId: string) => {
+    try {
+      await deleteDoc(doc(db, 'messages', msgId));
+    } catch (err) {
+      console.error('Failed to delete message', err);
+    }
+  };
+
   return (
-    <div className="flex-1 flex bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl m-4 md:m-8 overflow-hidden h-[calc(100vh-2rem)] md:h-[calc(100vh-4rem)] shadow-sm select-none">
+    <div className="flex-1 flex flex-col md:flex-row bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl m-4 md:m-8 overflow-hidden shadow-sm select-none">
       {/* 1. Left panel: Contacts index */}
       <div className={`w-full md:w-80 flex flex-col border-r border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/45 ${activeRecipient ? 'hidden md:flex' : 'flex'}`}>
         <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex flex-col gap-1.5 bg-white dark:bg-zinc-900">
@@ -276,7 +298,7 @@ export const Messages: React.FC = () => {
                   return (
                     <div 
                       key={m.id} 
-                      className={`flex gap-2.5 max-w-[85%] ${isOwn ? 'ml-auto flex-row-reverse' : 'mr-auto'}`}
+                      className={`flex gap-2.5 max-w-[85%] group ${isOwn ? 'ml-auto flex-row-reverse' : 'mr-auto'}`}
                     >
                       <img
                         src={isOwn ? profile?.avatarUrl : activeRecipient.avatarUrl}
@@ -284,14 +306,25 @@ export const Messages: React.FC = () => {
                         className="w-7 h-7 rounded-full object-cover shrink-0 select-none bg-white dark:bg-zinc-905 border border-zinc-250 dark:border-zinc-800 self-end"
                       />
                       <div className="flex flex-col gap-0.5">
-                        <div 
-                          className={`rounded-2xl p-3 text-xs leading-relaxed font-sans overflow-wrap-anywhere ${
-                            isOwn 
-                              ? 'bg-zinc-900 dark:bg-zinc-150 text-white dark:text-zinc-950 rounded-br-none' 
-                              : 'bg-white dark:bg-zinc-850 border border-zinc-200 dark:border-zinc-750 text-zinc-900 dark:text-zinc-100 rounded-bl-none'
-                          }`}
-                        >
-                          {m.text}
+                        <div className={`flex items-center gap-2 ${isOwn ? 'flex-row-reverse' : 'flex-row'}`}>
+                          <div 
+                            className={`rounded-2xl p-3 text-xs leading-relaxed font-sans overflow-wrap-anywhere ${
+                              isOwn 
+                                ? 'bg-zinc-900 dark:bg-zinc-150 text-white dark:text-zinc-950 rounded-br-none' 
+                                : 'bg-white dark:bg-zinc-850 border border-zinc-200 dark:border-zinc-750 text-zinc-900 dark:text-zinc-100 rounded-bl-none'
+                            }`}
+                          >
+                            {m.text}
+                          </div>
+                          {isOwn && (
+                            <button
+                              onClick={() => handleDeleteMessage(m.id)}
+                              title="Delete message"
+                              className="opacity-0 group-hover:opacity-100 p-1.5 text-zinc-400 hover:text-red-500 rounded-full hover:bg-red-50 dark:hover:bg-red-950/30 transition-all cursor-pointer"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          )}
                         </div>
                         <span className={`text-[9px] font-mono select-none px-1 mt-0.5 ${isOwn ? 'text-right text-zinc-455 dark:text-zinc-500' : 'text-zinc-455 dark:text-zinc-500'}`}>
                           {m.createdAt ? new Date(m.createdAt.seconds * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Sending...'}

@@ -279,6 +279,18 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
     }
   };
 
+  const handleDeleteComment = async (commentId: string) => {
+    if (!user) return;
+    try {
+      await deleteDoc(doc(db, 'memos', memo.id, 'comments', commentId));
+      await updateDoc(doc(db, 'memos', memo.id), {
+        commentsCount: increment(-1)
+      });
+    } catch (err) {
+      console.error('Failed to delete comment', err);
+    }
+  };
+
   // Toggle Following relationship
   const handleFollowToggle = async () => {
     if (!user || !profile || user.uid === memo.userId) return;
@@ -743,21 +755,23 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
             {showOptionsDropdown && (
               <>
                 <div 
-                  className="fixed inset-0 z-40" 
+                  className="fixed inset-0 z-[100] bg-black/20 sm:bg-transparent backdrop-blur-sm sm:backdrop-blur-none transition-all" 
                   onClick={() => setShowOptionsDropdown(false)} 
                 />
                 
-                <div className="absolute right-0 mt-2 w-52 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg z-50 py-1.5 animate-fade-in text-xs font-sans overflow-hidden">
+                <div className="fixed bottom-0 left-0 right-0 sm:absolute sm:bottom-auto sm:left-auto sm:right-0 sm:mt-2 w-full sm:w-52 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-t-3xl sm:rounded-xl shadow-[0_-10px_40px_rgba(0,0,0,0.15)] sm:shadow-lg z-[101] py-4 sm:py-1.5 animate-in slide-in-from-bottom-8 sm:slide-in-from-bottom-0 sm:fade-in sm:zoom-in-95 duration-200 text-xs font-sans overflow-hidden sm:pb-1.5 pb-safe-bottom flex flex-col gap-1 sm:gap-0 max-h-[85vh] overflow-y-auto">
+                  <div className="w-12 h-1 bg-zinc-200 dark:bg-zinc-800 rounded-full mx-auto mb-2 sm:hidden shrink-0" />
+                  
                   <button
                     type="button"
                     onClick={() => {
                       handleCopyLink();
                       setShowOptionsDropdown(false);
                     }}
-                    className="w-full text-left px-4 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-350 flex items-center gap-2.5 cursor-pointer font-bold"
+                    className="w-full text-left px-4 py-3 sm:py-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-350 flex items-center gap-3 sm:gap-2.5 cursor-pointer font-bold active:bg-zinc-100 dark:active:bg-zinc-800 transition-colors"
                   >
-                    <Copy className="w-3.5 h-3.5 text-zinc-400" />
-                    <span>{copied ? 'Link Copied!' : 'Copy Link to Post'}</span>
+                    <Copy className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-zinc-400" />
+                    <span className="text-sm sm:text-xs">{copied ? 'Link Copied!' : 'Copy Link to Post'}</span>
                   </button>
 
                   <button
@@ -766,17 +780,17 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
                       handleSpeakToggle();
                       setShowOptionsDropdown(false);
                     }}
-                    className="w-full text-left px-4 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-350 flex items-center gap-2.5 cursor-pointer font-bold"
+                    className="w-full text-left px-4 py-3 sm:py-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-350 flex items-center gap-3 sm:gap-2.5 cursor-pointer font-bold active:bg-zinc-100 dark:active:bg-zinc-800 transition-colors"
                   >
                     {isSpeaking ? (
                       <>
-                        <VolumeX className="w-3.5 h-3.5 text-red-500" />
-                        <span className="text-red-500">Stop Reading</span>
+                        <VolumeX className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-red-500" />
+                        <span className="text-red-500 text-sm sm:text-xs">Stop Reading</span>
                       </>
                     ) : (
                       <>
-                        <Volume2 className="w-3.5 h-3.5 text-zinc-400" />
-                        <span>Read Aloud (TTS)</span>
+                        <Volume2 className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-zinc-400" />
+                        <span className="text-sm sm:text-xs">Read Aloud (TTS)</span>
                       </>
                     )}
                   </button>
@@ -787,10 +801,10 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
                       handleTranslate();
                       setShowOptionsDropdown(false);
                     }}
-                    className="w-full text-left px-4 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-350 flex items-center gap-2.5 cursor-pointer font-bold"
+                    className="w-full text-left px-4 py-3 sm:py-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-350 flex items-center gap-3 sm:gap-2.5 cursor-pointer font-bold active:bg-zinc-100 dark:active:bg-zinc-800 transition-colors"
                   >
-                    <Languages className="w-3.5 h-3.5 text-zinc-400" />
-                    <span>{translation ? 'Show Original' : 'Instant Translate'}</span>
+                    <Languages className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-zinc-400" />
+                    <span className="text-sm sm:text-xs">{translation ? 'Show Original' : 'Instant Translate'}</span>
                   </button>
 
                   <button
@@ -799,10 +813,10 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
                       setFocusReader(true);
                       setShowOptionsDropdown(false);
                     }}
-                    className="w-full text-left px-4 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-350 flex items-center gap-2.5 cursor-pointer font-bold"
+                    className="w-full text-left px-4 py-3 sm:py-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-350 flex items-center gap-3 sm:gap-2.5 cursor-pointer font-bold active:bg-zinc-100 dark:active:bg-zinc-800 transition-colors"
                   >
-                    <BookOpen className="w-3.5 h-3.5 text-zinc-400" />
-                    <span>Immersive Reader</span>
+                    <BookOpen className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-zinc-400" />
+                    <span className="text-sm sm:text-xs">Immersive Reader</span>
                   </button>
 
                   <button
@@ -811,13 +825,15 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
                       setFontSize(prev => prev === 'normal' ? 'lg' : prev === 'lg' ? 'xl' : 'normal');
                       setShowOptionsDropdown(false);
                     }}
-                    className="w-full text-left px-4 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-350 flex items-center gap-2.5 cursor-pointer font-bold"
+                    className="w-full text-left px-4 py-3 sm:py-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-350 flex items-center gap-3 sm:gap-2.5 cursor-pointer font-bold active:bg-zinc-100 dark:active:bg-zinc-800 transition-colors"
                   >
-                    <Scaling className="w-3.5 h-3.5 text-zinc-400" />
-                    <span className="flex-1">Font Size: <span className="uppercase font-mono text-[9px] text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800 px-1 py-0.5 rounded leading-none">{fontSize}</span></span>
+                    <Scaling className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-zinc-400" />
+                    <span className="flex-1 text-sm sm:text-xs flex items-center">
+                      Font Size: <span className="ml-2 uppercase font-mono text-[9px] text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded leading-none">{fontSize}</span>
+                    </span>
                   </button>
 
-                  <div className="border-t border-zinc-100 dark:border-zinc-900 my-1" />
+                  <div className="border-t border-zinc-100 dark:border-zinc-900 my-1 sm:my-1 w-full mx-auto" />
 
                   <button
                     type="button"
@@ -825,11 +841,25 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
                       setIsHidden(true);
                       setShowOptionsDropdown(false);
                     }}
-                    className="w-full text-left px-4 py-2 hover:bg-red-50 dark:hover:bg-red-950/20 text-red-600 dark:text-red-400 flex items-center gap-2.5 cursor-pointer font-bold"
+                    className="w-full text-left px-4 py-3 sm:py-2 hover:bg-red-50 dark:hover:bg-red-950/20 text-red-600 dark:text-red-400 flex items-center gap-3 sm:gap-2.5 cursor-pointer font-bold active:bg-red-100 dark:active:bg-red-900 transition-colors"
                   >
-                    <EyeOff className="w-3.5 h-3.5" />
-                    <span>Hide Post</span>
+                    <EyeOff className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                    <span className="text-sm sm:text-xs">Hide Post</span>
                   </button>
+                  
+                  {user && memo.userId === user.uid && (
+                     <button
+                     type="button"
+                     onClick={() => {
+                       handleDeleteMemo();
+                       setShowOptionsDropdown(false);
+                     }}
+                     className="w-full text-left px-4 py-3 sm:py-2 hover:bg-red-50 dark:hover:bg-red-950/20 text-red-600 dark:text-red-400 flex items-center gap-3 sm:gap-2.5 cursor-pointer font-bold active:bg-red-100 dark:active:bg-red-900 transition-colors sm:hidden"
+                   >
+                     <Trash2 className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                     <span className="text-sm sm:text-xs">Delete Circle</span>
+                   </button>
+                  )}
                 </div>
               </>
             )}
@@ -939,12 +969,12 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
               </p>
             ) : (
               comments.map(c => (
-                <div key={c.id} className="flex gap-2.5 items-start text-xs border-b border-zinc-200/40 dark:border-zinc-900 pb-2.5 last:border-b-0">
+                <div key={c.id} className="flex gap-2.5 items-start text-xs border-b border-zinc-200/40 dark:border-zinc-900 pb-2.5 last:border-b-0 group">
                   <img
                     src={c.avatarUrl}
                     alt={c.displayName}
                     onClick={() => navigate('/' + c.username)}
-                    className="w-7 h-7 rounded-full object-cover mt-0.5 bg-zinc-150 dark:bg-zinc-800 cursor-pointer hover:opacity-85 transition-opacity"
+                    className="w-7 h-7 rounded-full object-cover mt-0.5 bg-zinc-150 dark:bg-zinc-800 cursor-pointer hover:opacity-85 transition-opacity shrink-0"
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5 flex-wrap">
@@ -959,7 +989,20 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
                         {formatTimestamp(c.createdAt)}
                       </span>
                     </div>
-                    <p className="text-zinc-705 dark:text-zinc-300 mt-1 leading-relaxed break-all select-text">{c.content}</p>
+                    <div className="flex items-start justify-between gap-4 mt-1">
+                      <p className="text-zinc-705 dark:text-zinc-300 leading-relaxed break-all select-text flex-1">
+                        {c.content}
+                      </p>
+                      {user && (user.uid === c.userId || user.uid === memo.userId) && (
+                        <button
+                          onClick={() => handleDeleteComment(c.id)}
+                          className="opacity-0 group-hover:opacity-100 text-zinc-400 hover:text-red-500 transition-all p-1 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg shrink-0"
+                          title="Delete Comment"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))

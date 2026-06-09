@@ -140,7 +140,7 @@ function AppContent() {
   // Sync state loader
   if (loading) {
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col items-center justify-center gap-4 text-center">
+      <div className="min-h-[100dvh] bg-zinc-50 dark:bg-zinc-950 flex flex-col items-center justify-center gap-4 text-center">
         <div className="relative">
           <div className="w-12 h-12 rounded-full border-4 border-zinc-200 dark:border-zinc-800 border-t-zinc-900 dark:border-t-white animate-spin" />
           <div className="absolute inset-0 flex items-center justify-center font-bold text-zinc-900 dark:text-zinc-100 text-xs text-center">
@@ -186,7 +186,7 @@ function AppContent() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col md:flex-row text-zinc-900 dark:text-zinc-50 font-sans antialiased overflow-hidden selection:bg-zinc-950/10 dark:selection:bg-zinc-50/10 selection:text-zinc-950 dark:selection:text-zinc-50">
+    <div className="h-[100dvh] min-h-[100dvh] bg-zinc-50 dark:bg-zinc-950 flex flex-col md:flex-row text-zinc-900 dark:text-zinc-50 font-sans antialiased overflow-hidden selection:bg-zinc-950/10 dark:selection:bg-zinc-50/10 selection:text-zinc-950 dark:selection:text-zinc-50">
       
       {/* 1. Main Navigation Sidebar Panel */}
       <Navbar
@@ -249,6 +249,9 @@ function AppContent() {
           />
         )}
       </main>
+
+      {/* Helper padding offset spacer for mobile screens so that bottom nav content does not cover articles */}
+      <div className="md:hidden h-16 w-full select-none shrink-0" />
 
       {/* 3. Global setups/onboarding wizard modals overlay */}
       <ProfileSetupModal
