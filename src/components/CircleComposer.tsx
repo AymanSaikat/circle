@@ -1278,9 +1278,10 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
 
       {/* Facebook/Instagram Style Scheduling Options Modal */}
       {showScheduleModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/80 backdrop-blur-xs animate-fade-in select-none">
+        <div className="fixed inset-0 z-[100] flex sm:items-center justify-center p-0 sm:p-4 bg-black/60 dark:bg-black/80 backdrop-blur-xs animate-fade-in select-none items-end">
           {/* Modal Card */}
-          <div className="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-2xl p-6 relative flex flex-col gap-4 animate-scale-up text-zinc-900 dark:text-white select-none">
+          <div className="w-full sm:max-w-md bg-white dark:bg-zinc-900 border-t sm:border border-zinc-200 dark:border-zinc-800 rounded-t-3xl sm:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.15)] sm:shadow-2xl p-6 sm:p-6 relative flex flex-col gap-4 animate-in slide-in-from-bottom-8 sm:slide-in-from-bottom-0 sm:fade-in sm:zoom-in-95 text-zinc-900 dark:text-white select-none pb-safe-bottom">
+            <div className="w-12 h-1 bg-zinc-200 dark:bg-zinc-800 rounded-full mx-auto mb-2 sm:hidden shrink-0" />
             {/* Header / Nav */}
             <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-855 pb-4">
               <button

@@ -55,7 +55,22 @@ export const Login: React.FC = () => {
       }
     } catch (err: any) {
       console.error(err);
-      setError(err.message || 'Authorization failed. Please check your credentials.');
+      let errorMessage = err.message || 'Authorization failed. Please check your credentials.';
+      try {
+        if (errorMessage.startsWith('{')) {
+          const parsed = JSON.parse(errorMessage);
+          if (parsed.error) {
+            errorMessage = parsed.error;
+          }
+        } else if (errorMessage.includes('auth/invalid-credential')) {
+           errorMessage = 'Invalid email or password. Please try again.';
+        } else if (errorMessage.includes('auth/email-already-in-use')) {
+           errorMessage = 'This email address is already registered. Please sign in instead.';
+        }
+      } catch (e) {
+        // ignore parse errors
+      }
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

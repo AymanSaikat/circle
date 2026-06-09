@@ -169,7 +169,18 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
       navigate('/' + cleanUsername.toLowerCase());
     } catch (err: any) {
       console.error(err);
-      setError(err.message || 'Failed to update profile. Please review fields.');
+      let errorMessage = err.message || 'Failed to update profile. Please review fields.';
+      try {
+        if (errorMessage.startsWith('{')) {
+          const parsed = JSON.parse(errorMessage);
+          if (parsed.error) {
+            errorMessage = parsed.error;
+          }
+        }
+      } catch (e) {
+        // ignore parse errors
+      }
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
