@@ -584,7 +584,7 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                   <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-1">Manage email settings, password reset, deactivation options, and general credentials.</p>
                 </div>
 
-                <div className="bg-zinc-50 dark:bg-zinc-900/40 p-4 border border-zinc-150 dark:border-zinc-900 rounded-2xl flex items-center justify-between">
+                <div className="bg-zinc-50 dark:bg-zinc-900/40 p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl flex items-center justify-between">
                   <div className="flex flex-col gap-0.5">
                     <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500">REGISTERED EMAIL</span>
                     <span className="text-xs font-extrabold text-zinc-900 dark:text-white">{user?.email || 'unregistered@circle.app'}</span>
@@ -593,18 +593,18 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                 </div>
 
                 <div className="space-y-4">
-                  <p className="text-[10px] text-zinc-400 dark:text-zinc-555 font-bold uppercase tracking-widest text-[9px]">Security Credentials</p>
+                  <p className="text-[10px] text-zinc-400 dark:text-zinc-500 font-bold uppercase tracking-widest text-[9px]">Security Credentials</p>
                   
-                  <div className="p-4 border border-zinc-155 dark:border-zinc-900 rounded-2xl space-y-3">
+                  <div className="p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
                         <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-200">Reset Password</h4>
-                        <p className="text-[10px] text-zinc-450 dark:text-zinc-500">Request a safe password reset link sent to your email</p>
+                        <p className="text-[10px] text-zinc-400 dark:text-zinc-500">Request a safe password reset link sent to your email</p>
                       </div>
                       <button
                         type="button"
                         onClick={() => triggerToast('A secure password-reset link has been sent to your email!')}
-                        className="p-2 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-850 text-zinc-900 dark:text-zinc-100 font-bold text-[10px] rounded-xl cursor-pointer transition-colors"
+                        className="p-2 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-bold text-[10px] rounded-xl cursor-pointer transition-colors"
                       >
                         Reset Password
                       </button>
@@ -665,10 +665,10 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                 <div className="space-y-4">
                   
                   {/* Toggle 1: Private Account */}
-                  <div className="p-4 border border-zinc-150 dark:border-zinc-900 rounded-2xl flex items-center justify-between">
+                  <div className="p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl flex items-center justify-between">
                     <div>
                       <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-100">Private Profile</h4>
-                      <p className="text-[10px] text-zinc-450 dark:text-zinc-500">Only approved followers can see your profile posts and shared activities.</p>
+                      <p className="text-[10px] text-zinc-400 dark:text-zinc-500">Only approved followers can see your profile posts and shared activities.</p>
                     </div>
                     
                     {/* Switch layout */}
@@ -686,10 +686,10 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                   </div>
 
                   {/* Toggle 2: Index Search options */}
-                  <div className="p-4 border border-zinc-150 dark:border-zinc-900 rounded-2xl flex items-center justify-between">
+                  <div className="p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl flex items-center justify-between">
                     <div>
                       <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-100">Show in Search Results</h4>
-                      <p className="text-[10px] text-zinc-450 dark:text-zinc-500">Allow search engines and active search tools to index and find your profile in searches</p>
+                      <p className="text-[10px] text-zinc-400 dark:text-zinc-500">Allow search engines and active search tools to index and find your profile in searches</p>
                     </div>
                     
                     <button
@@ -706,10 +706,10 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                   </div>
 
                   {/* Select Options 1: Direct Message filter */}
-                  <div className="p-4 border border-zinc-150 dark:border-zinc-900 rounded-2xl space-y-3">
+                  <div className="p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl space-y-3">
                     <div>
                       <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-100">Direct Messages</h4>
-                      <p className="text-[10px] text-zinc-450 dark:text-zinc-500">Choose who can send you direct private messages</p>
+                      <p className="text-[10px] text-zinc-400 dark:text-zinc-500">Choose who can send you direct private messages</p>
                     </div>
 
                     <div className="grid grid-cols-3 gap-2">
@@ -731,10 +731,10 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                   </div>
 
                   {/* Select Options 2: Tag filters */}
-                  <div className="p-4 border border-zinc-150 dark:border-zinc-900 rounded-2xl space-y-3">
+                  <div className="p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl space-y-3">
                     <div>
                       <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-100">Mentions & Tags</h4>
-                      <p className="text-[10px] text-zinc-450 dark:text-zinc-500">Choose who can tag @{username || "yourname"} in posts and comments</p>
+                      <p className="text-[10px] text-zinc-400 dark:text-zinc-500">Choose who can tag @{username || "yourname"} in posts and comments</p>
                     </div>
 
                     <div className="grid grid-cols-3 gap-2">
@@ -746,7 +746,7 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                           className={`px-3 py-2 text-[10px] font-bold border rounded-xl capitalize transition-all select-none cursor-pointer ${
                             tagPermission === opt 
                               ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 border-zinc-900 dark:border-white' 
-                              : 'bg-zinc-50 dark:bg-zinc-900 text-zinc-650 dark:text-zinc-400 border-zinc-200 dark:border-zinc-800 hover:bg-zinc-105 dark:hover:bg-zinc-800'
+                              : 'bg-zinc-50 dark:bg-zinc-900 text-zinc-650 dark:text-zinc-400 border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800'
                           }`}
                         >
                           {opt}
@@ -780,10 +780,10 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                 <div className="space-y-4">
                   
                   {/* Master switch */}
-                  <div className="p-4 bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-150 dark:border-zinc-900 rounded-2xl flex items-center justify-between">
+                  <div className="p-4 bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-100 dark:border-zinc-800 rounded-2xl flex items-center justify-between">
                     <div>
                       <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-100">Pause All Notifications</h4>
-                      <p className="text-[10px] text-zinc-450 dark:text-zinc-500">Temporarily pause all alert popups and notifications</p>
+                      <p className="text-[10px] text-zinc-400 dark:text-zinc-500">Temporarily pause all alert popups and notifications</p>
                     </div>
                     
                     <button
@@ -803,12 +803,12 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                     <p className="text-[10px] text-zinc-400 dark:text-zinc-500 font-bold uppercase tracking-widest pl-1 text-[9px]">Notifications & Alert Types</p>
                     
                     {/* Likes alerts */}
-                    <div className="p-4 border border-zinc-150 dark:border-zinc-900 rounded-2xl flex items-center justify-between">
+                    <div className="p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-xl bg-red-100 dark:bg-red-950/20 text-red-500 dark:text-red-400 flex items-center justify-center font-bold text-xs">♥</div>
+                        <div className="w-8 h-8 rounded-xl bg-red-105 dark:bg-red-955/20 text-red-505 dark:text-red-405 flex items-center justify-center font-bold text-xs select-none shadow-xs">♥</div>
                         <div>
                           <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-200">Likes</h4>
-                          <p className="text-[10px] text-zinc-455 dark:text-zinc-500">Notify me when someone likes one of my posts</p>
+                          <p className="text-[10px] text-zinc-400 dark:text-zinc-500 font-medium">Notify me when someone likes one of my posts</p>
                         </div>
                       </div>
                       <button
@@ -825,12 +825,12 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                     </div>
 
                     {/* Comments alerts */}
-                    <div className="p-4 border border-zinc-150 dark:border-zinc-900 rounded-2xl flex items-center justify-between">
+                    <div className="p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 flex items-center justify-center font-bold text-xs">💬</div>
                         <div>
                           <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-200">Comments & Replies</h4>
-                          <p className="text-[10px] text-zinc-455 dark:text-zinc-500">Notify me when someone comments or replies to my threads</p>
+                          <p className="text-[10px] text-zinc-400 dark:text-zinc-500">Notify me when someone comments or replies to my threads</p>
                         </div>
                       </div>
                       <button
@@ -847,12 +847,12 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                     </div>
 
                     {/* Direct message alert */}
-                    <div className="p-4 border border-zinc-150 dark:border-zinc-900 rounded-2xl flex items-center justify-between">
+                    <div className="p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <MessageSquare className="w-4 h-4 text-zinc-500" />
                         <div>
                           <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-200">Direct Messages</h4>
-                          <p className="text-[10px] text-zinc-455 dark:text-zinc-500">Notify me when I receive a new private message</p>
+                          <p className="text-[10px] text-zinc-400 dark:text-zinc-500">Notify me when I receive a new private message</p>
                         </div>
                       </div>
                       <button
@@ -869,12 +869,12 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                     </div>
 
                     {/* Quiet Focus Hours scheduling */}
-                    <div className="p-4 border border-zinc-150 dark:border-zinc-900 rounded-2xl flex items-center justify-between">
+                    <div className="p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <Smartphone className="w-4 h-4 text-indigo-505" />
+                        <Smartphone className="w-4 h-4 text-indigo-500" />
                         <div>
                           <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-200">Quiet Hours</h4>
-                          <p className="text-[10px] text-zinc-455 dark:text-zinc-500 font-medium">Auto-mute notifications from 10:00 PM to 7:00 AM daily</p>
+                          <p className="text-[10px] text-zinc-400 dark:text-zinc-500 font-medium">Auto-mute notifications from 10:00 PM to 7:00 AM daily</p>
                         </div>
                       </div>
                       <button
@@ -951,7 +951,7 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                       className={`p-5 rounded-2xl border text-left flex flex-col justify-between h-28 cursor-pointer select-none transition-all ${
                         theme === 'dark' 
                           ? 'border-zinc-200 dark:border-white bg-zinc-900 dark:bg-zinc-900 text-white ring-2 ring-zinc-100/10' 
-                          : 'border-zinc-200 dark:border-zinc-800 bg-white text-zinc-505 hover:bg-zinc-105 dark:bg-zinc-950 dark:hover:bg-zinc-900/30'
+                          : 'border-zinc-200 dark:border-zinc-800 bg-white text-zinc-500 hover:bg-zinc-100 dark:bg-zinc-950 dark:hover:bg-zinc-900/30'
                       }`}
                     >
                       <div className="flex justify-between items-center w-full">
@@ -970,10 +970,10 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                   <div className="space-y-3 pt-4">
                     <p className="text-[10px] text-zinc-400 dark:text-zinc-500 font-bold uppercase tracking-widest pl-1 text-[9px]">Text Size</p>
                     
-                    <div className="p-4 border border-zinc-150 dark:border-zinc-900 rounded-2xl space-y-3">
+                    <div className="p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl space-y-3">
                       <div className="flex justify-between items-center">
                         <span className="text-xs font-bold text-zinc-900 dark:text-zinc-200">Text Size Selection</span>
-                        <span className="text-[10px] font-bold text-zinc-450 uppercase">{fontSize === 'sm' ? 'Small' : fontSize === 'base' ? 'Medium' : 'Large'}</span>
+                        <span className="text-[10px] font-bold text-zinc-400 uppercase">{fontSize === 'sm' ? 'Small' : fontSize === 'base' ? 'Medium' : 'Large'}</span>
                       </div>
                       
                       <div className="grid grid-cols-3 gap-2">
@@ -985,7 +985,7 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                             className={`px-3 py-2 text-[10px] font-bold border rounded-xl capitalize transition-all cursor-pointer ${
                               fontSize === size 
                                 ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 border-zinc-900 dark:border-white shadow-xs' 
-                                : 'bg-zinc-50 dark:bg-zinc-900 text-zinc-650 dark:text-zinc-400 border-zinc-150 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                                : 'bg-zinc-50 dark:bg-zinc-900 text-zinc-650 dark:text-zinc-400 border-zinc-100 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800'
                             }`}
                           >
                             {size === 'sm' ? 'Small' : size === 'base' ? 'Default' : 'Large'}
@@ -999,10 +999,10 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                   <div className="space-y-3 pt-2">
                     <p className="text-[10px] text-zinc-400 dark:text-zinc-500 font-bold uppercase tracking-widest pl-1 text-[9px]">Layout Density</p>
                     
-                    <div className="p-4 border border-zinc-150 dark:border-zinc-900 rounded-2xl flex items-center justify-between">
+                    <div className="p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl flex items-center justify-between">
                       <div>
                         <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-100">Compact Spacing</h4>
-                        <p className="text-[10px] text-zinc-450 dark:text-zinc-500">Reduces padding and margins globally to fit more posts on screen</p>
+                        <p className="text-[10px] text-zinc-400 dark:text-zinc-500">Reduces padding and margins globally to fit more posts on screen</p>
                       </div>
                       <button
                         type="button"
@@ -1041,10 +1041,10 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                 <div className="space-y-4">
                   
                   {/* Two factor toggle */}
-                  <div className="p-4 border border-zinc-150 dark:border-zinc-900 rounded-2xl flex items-center justify-between">
+                  <div className="p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl flex items-center justify-between">
                     <div>
                       <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-100">Two-Factor Authentication (2FA)</h4>
-                      <p className="text-[10px] text-zinc-455 dark:text-zinc-505 font-medium leading-relaxed max-w-sm">Require a verification code sent to your email or authenticator app when logging in on new devices.</p>
+                      <p className="text-[10px] text-zinc-400 dark:text-zinc-500 font-medium leading-relaxed max-w-sm">Require a verification code sent to your email or authenticator app when logging in on new devices.</p>
                     </div>
                     
                     <button
@@ -1061,10 +1061,10 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                   </div>
 
                   {/* Auto lock */}
-                  <div className="p-4 border border-zinc-151 dark:border-zinc-900 rounded-2xl flex items-center justify-between">
+                  <div className="p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl flex items-center justify-between">
                     <div>
-                      <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-105">Automatic Logout</h4>
-                      <p className="text-[10px] text-zinc-450 dark:text-zinc-500">Automatically logs you out of your current session after 30 minutes of inactivity</p>
+                      <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-100">Automatic Logout</h4>
+                      <p className="text-[10px] text-zinc-400 dark:text-zinc-500">Automatically logs you out of your current session after 30 minutes of inactivity</p>
                     </div>
                     
                     <button
@@ -1081,17 +1081,17 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                   </div>
 
                   {/* Connection Sync Terminal diagnostic */}
-                  <div className="p-5 bg-zinc-50 dark:bg-zinc-900/40 rounded-2xl border border-zinc-150 dark:border-zinc-900 space-y-3">
+                  <div className="p-5 bg-zinc-50 dark:bg-zinc-900/40 rounded-2xl border border-zinc-100 dark:border-zinc-800 space-y-3">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                       <div>
                         <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-200 tracking-tight select-all">System Health Check</h4>
-                        <p className="text-[10px] text-zinc-450 dark:text-zinc-500">Run a safe test of your current database speed and connection reliability</p>
+                        <p className="text-[10px] text-zinc-400 dark:text-zinc-500">Run a safe test of your current database speed and connection reliability</p>
                       </div>
                       <button
                         type="button"
                         onClick={runDiagnosticCheck}
                         disabled={isDiagnosing}
-                        className="px-3.5 py-1.5 bg-zinc-900 hover:bg-zinc-805 dark:bg-white dark:hover:bg-zinc-100 text-white dark:text-zinc-950 rounded-xl font-bold font-sans text-[10px] self-start cursor-pointer select-none transition-all disabled:opacity-40"
+                        className="px-3.5 py-1.5 bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:hover:bg-zinc-100 text-white dark:text-zinc-950 rounded-xl font-bold font-sans text-[10px] self-start cursor-pointer select-none transition-all disabled:opacity-40"
                       >
                         {isDiagnosing ? 'Testing...' : 'Run Diagnostics'}
                       </button>
@@ -1115,7 +1115,7 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                 <div className="flex justify-end pt-4">
                   <button
                     type="submit"
-                    className="px-6 py-3 rounded-2xl text-xs font-bold bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-805 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 shadow"
+                    className="px-6 py-3 rounded-2xl text-xs font-bold bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 shadow"
                   >
                     Save Security Settings
                   </button>
@@ -1135,30 +1135,30 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                 {/* Simulated FAQ Accordions */}
                 <div className="space-y-3.5 select-text">
                   
-                  <div className="p-4 bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-150 dark:border-zinc-900 rounded-2xl">
+                  <div className="p-4 bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-100 dark:border-zinc-800 rounded-2xl">
                     <h4 className="text-xs font-bold text-zinc-900 dark:text-white leading-normal">Is my personal information secure?</h4>
-                    <p className="text-[11px] text-zinc-505 dark:text-zinc-440 leading-relaxed mt-2 font-medium">
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-relaxed mt-2 font-medium">
                       Yes, Circle protects your account safety. Your direct messages, personal profile details, and posts are stored with industry-standard encryption to prevent unauthorized access or scraping.
                     </p>
                   </div>
 
-                  <div className="p-4 bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-150 dark:border-zinc-900 rounded-2xl">
+                  <div className="p-4 bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-100 dark:border-zinc-800 rounded-2xl">
                     <h4 className="text-xs font-bold text-zinc-900 dark:text-white leading-normal">How do I change my username?</h4>
-                    <p className="text-[11px] text-zinc-505 dark:text-zinc-440 leading-relaxed mt-2 font-medium">
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-relaxed mt-2 font-medium">
                       Go to the <strong className="text-zinc-900 dark:text-zinc-100">Edit Profile</strong> tab on the left, enter a new username, and wait for the system to verify its availability. Once approved, you can save your changes instantly.
                     </p>
                   </div>
 
-                  <div className="p-4 bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-150 dark:border-zinc-900 rounded-2xl">
+                  <div className="p-4 bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-100 dark:border-zinc-800 rounded-2xl">
                     <h4 className="text-xs font-bold text-zinc-900 dark:text-white leading-normal">How do I crop my profile photo?</h4>
-                    <p className="text-[11px] text-zinc-505 dark:text-zinc-440 leading-relaxed mt-2 font-medium">
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-relaxed mt-2 font-medium">
                       When you upload a new photo, our built-in image editor lets you adjust the crop, rotation, zoom, and framing so your picture fits perfectly.
                     </p>
                   </div>
 
                 </div>
 
-                <div className="p-4 border border-zinc-150 dark:border-zinc-900 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-3 bg-zinc-50/20 dark:bg-zinc-900/10">
+                <div className="p-4 border border-zinc-100 dark:border-zinc-800 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-3 bg-zinc-50/20 dark:bg-zinc-900/10">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 bg-zinc-100 dark:bg-zinc-900 rounded-xl flex items-center justify-center font-bold text-xs">💬</div>
                     <div>
@@ -1169,7 +1169,7 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                   <button
                     type="button"
                     onClick={() => triggerToast('Support ticket created successfully! Our team will reach out via email.')}
-                    className="px-4 py-2 border border-zinc-200 dark:border-zinc-805 hover:bg-zinc-50 dark:hover:bg-zinc-900 text-zinc-900 dark:text-zinc-100 font-bold font-sans text-[10px] rounded-xl cursor-pointer select-none"
+                    className="px-4 py-2 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900 text-zinc-900 dark:text-zinc-100 font-bold font-sans text-[10px] rounded-xl cursor-pointer select-none"
                   >
                     Open Support Ticket
                   </button>
@@ -1180,7 +1180,7 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
           </div>
 
           {/* Bottom Pane with Close Button Actions */}
-          <div className="p-4 border-t border-zinc-105 dark:border-zinc-900 flex justify-end gap-3 select-none shrink-0 bg-white dark:bg-zinc-950">
+          <div className="p-4 border-t border-zinc-100 dark:border-zinc-800 flex justify-end gap-3 select-none shrink-0 bg-white dark:bg-zinc-950">
             {!forceOnboarding && (
               <button
                 type="button"

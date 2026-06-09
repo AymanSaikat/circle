@@ -80,7 +80,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   const getButtonClasses = (isActive: boolean) => {
-    return `flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs font-bold tracking-wide transition-all group select-none cursor-pointer ${
+    return `flex items-center justify-center xl:justify-start gap-3.5 px-3 xl:px-4 py-3 rounded-xl text-xs font-bold tracking-wide transition-all group select-none cursor-pointer ${
       isActive
         ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 shadow-md shadow-zinc-900/10 dark:shadow-none font-extrabold'
         : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 hover:bg-zinc-100/50 dark:hover:bg-zinc-900/40'
@@ -90,22 +90,22 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       {/* ==================== DESKTOP SIDEBAR NAVIGATION (md and up) ==================== */}
-      <aside className="hidden md:flex w-64 flex-col bg-white dark:bg-zinc-950 border-r border-zinc-150 dark:border-zinc-900 text-zinc-900 dark:text-zinc-50 h-screen p-6 sticky top-0 shrink-0 justify-between select-none z-30">
+      <aside className="hidden md:flex w-20 xl:w-64 flex-col bg-white dark:bg-zinc-950 border-r border-zinc-100 dark:border-zinc-900/60 text-zinc-900 dark:text-zinc-50 h-[100dvh] min-h-[100dvh] p-3 xl:p-6 sticky top-0 shrink-0 justify-between select-none z-30 transition-all duration-300">
         
         {/* Top Branding & Main Menu List */}
         <div className="flex flex-col gap-10">
           
           {/* Futuristic minimalist line-art logo design */}
-          <div className="flex items-center gap-3 px-2 group">
-            <div className="relative flex items-center justify-center w-8 h-8 rounded-full border-2 border-zinc-900 dark:border-zinc-100 transition-all group-hover:scale-105 duration-300">
-              <div className="w-3 h-3 bg-zinc-900 dark:bg-zinc-100 rounded-full animate-pulse" />
+          <div className="flex items-center justify-center xl:justify-start gap-3 px-1 xl:px-2 group">
+            <div className="relative flex items-center justify-center w-8 h-8 rounded-full border-2 border-zinc-900 dark:border-zinc-100 transition-all group-hover:scale-105 duration-300 shrink-0">
+              <div className="w-3 h-3 bg-zinc-905 dark:bg-zinc-100 rounded-full animate-pulse" />
               <div className="absolute -inset-0.5 border border-dashed rounded-full border-zinc-400/20 group-hover:animate-spin" style={{ animationDuration: '8s' }} />
             </div>
-            <div>
-              <h1 className="text-sm font-extrabold font-sans tracking-widest text-zinc-900 dark:text-zinc-50 uppercase">
+            <div className="hidden xl:block">
+              <h1 className="text-sm font-extrabold font-sans tracking-widest text-zinc-900 dark:text-zinc-50 uppercase truncate">
                 Circle Media
               </h1>
-              <p className="text-[9px] text-zinc-400 dark:text-zinc-500 font-bold tracking-wider uppercase mt-0.5">SHARE WHAT'S REAL</p>
+              <p className="text-[9px] text-zinc-400 dark:text-zinc-500 font-bold tracking-wider uppercase mt-0.5 truncate">SHARE WHAT'S REAL</p>
             </div>
           </div>
 
@@ -116,8 +116,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => handleTabClick('feed')}
               className={getButtonClasses(currentTab === 'feed' && !selectedTag)}
             >
-              <Home className="w-[17px] h-[17px] transition-transform group-hover:scale-105 duration-200" />
-              <span>Feed</span>
+              <Home className="w-[17px] h-[17px] transition-transform group-hover:scale-105 duration-200 shrink-0" />
+              <span className="hidden xl:inline">Feed</span>
             </button>
 
             <button
@@ -125,22 +125,26 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => handleTabClick('search')}
               className={getButtonClasses(currentTab === 'search')}
             >
-              <Compass className="w-[17px] h-[17px] transition-transform group-hover:rotate-12 duration-200" />
-              <span>Discover</span>
+              <Compass className="w-[17px] h-[17px] transition-transform group-hover:rotate-12 duration-200 shrink-0" />
+              <span className="hidden xl:inline">Discover</span>
             </button>
 
             <button
-              id="desktop-nav-messages"
-              onClick={() => handleTabClick('messages')}
-              className={`${getButtonClasses(currentTab === 'messages')} relative`}
+              id="desktop-nav-inbox"
+              onClick={() => handleTabClick('inbox')}
+              className={`${getButtonClasses(currentTab === 'inbox')} relative`}
+              title="Inbox"
             >
-              <MessageSquare className="w-[17px] h-[17px] transition-transform group-hover:scale-105 duration-200" />
-              <div className="flex-1 flex items-center justify-between">
+              <MessageSquare className="w-[17px] h-[17px] transition-transform group-hover:scale-105 duration-200 shrink-0" />
+              <div className="hidden xl:flex flex-1 items-center justify-between">
                 <span>Inbox</span>
                 {/* Dynamic vibrant red notification badge */}
                 <div className="bg-red-500 dark:bg-red-600 text-white font-mono text-[9px] font-extrabold px-1.5 py-0.5 rounded-full leading-none flex items-center justify-center animate-pulse shadow-xs">
                   4
                 </div>
+              </div>
+              <div className="xl:hidden absolute top-1.5 right-1.5 bg-red-500 text-white font-mono text-[7px] font-extrabold w-3.5 h-3.5 rounded-full flex items-center justify-center animate-pulse">
+                4
               </div>
             </button>
 
@@ -149,8 +153,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => handleTabClick('private')}
               className={getButtonClasses(currentTab === 'private')}
             >
-              <Lock className="w-[17px] h-[17px] transition-transform group-hover:-translate-y-0.5 duration-200" />
-              <span>Private Notes</span>
+              <Lock className="w-[17px] h-[17px] transition-transform group-hover:-translate-y-0.5 duration-200 shrink-0" />
+              <span className="hidden xl:inline">Private Notes</span>
             </button>
 
             <button
@@ -158,8 +162,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => handleTabClick('bookmarks')}
               className={getButtonClasses(currentTab === 'bookmarks')}
             >
-              <Bookmark className="w-[17px] h-[17px] transition-transform group-hover:scale-105 duration-200" />
-              <span>Bookmarks</span>
+              <Bookmark className="w-[17px] h-[17px] transition-transform group-hover:scale-105 duration-200 shrink-0" />
+              <span className="hidden xl:inline">Bookmarks</span>
             </button>
 
             <button
@@ -167,8 +171,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => handleTabClick('profile')}
               className={getButtonClasses(currentTab === 'profile')}
             >
-              <User className="w-[17px] h-[17px] transition-transform group-hover:scale-105 duration-200" />
-              <span>My Profile</span>
+              <User className="w-[17px] h-[17px] transition-transform group-hover:scale-105 duration-200 shrink-0" />
+              <span className="hidden xl:inline">My Profile</span>
             </button>
 
             {/* Custom Settings component tab triggers modal setup */}
@@ -177,19 +181,19 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={onOpenProfileSetup}
               className={getButtonClasses(false)}
             >
-              <Settings className="w-[17px] h-[17px] transition-transform group-hover:rotate-45 duration-300" />
-              <span>Settings</span>
+              <Settings className="w-[17px] h-[17px] transition-transform group-hover:rotate-45 duration-300 shrink-0" />
+              <span className="hidden xl:inline">Settings</span>
             </button>
 
             {/* Active Hashtag selection filter bubble details */}
             {selectedTag && (
-              <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-[11px] font-bold bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-800 mt-2.5 animate-fade-in">
-                <Hash className="w-3.5 h-3.5 text-zinc-500 animate-pulse" />
-                <span className="truncate max-w-[110px]">#{selectedTag}</span>
+              <div className="flex items-center justify-center xl:justify-start gap-2 px-2 xl:px-4 py-2.5 rounded-xl text-[11px] font-bold bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-800 mt-2.5 animate-fade-in w-full overflow-hidden">
+                <Hash className="w-3.5 h-3.5 text-zinc-500 animate-pulse shrink-0" />
+                <span className="hidden xl:inline truncate max-w-[110px]">#{selectedTag}</span>
                 <button 
                   id="btn-clear-hashtag-filter-sidebar"
                   onClick={() => setSelectedTag(null)}
-                  className="ml-auto text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-all text-xs"
+                  className="xl:ml-auto text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-all text-xs"
                 >
                   ✕
                 </button>
@@ -199,7 +203,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Bottom Section - isolated with ProfileDropdown menu */}
-        <div className="relative pt-6 border-zinc-150 dark:border-zinc-900 flex flex-col gap-4">
+        <div className="relative pt-6 border-t border-zinc-100 dark:border-zinc-900/60 flex flex-col gap-4">
           <ProfileDropdown 
             onOpenProfileSetup={onOpenProfileSetup} 
             onNavigateToTab={handleTabClick} 
@@ -209,7 +213,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
 
       {/* ==================== SCREEN HEADER FOR MOBILE VIEW ==================== */}
-      <header className="flex md:hidden items-center justify-between bg-white dark:bg-zinc-950 border-b border-zinc-150 dark:border-zinc-900 px-4 py-3 sticky top-0 z-20 select-none">
+      <header className="flex md:hidden items-center justify-between bg-white dark:bg-zinc-950 border-b border-zinc-100 dark:border-zinc-900/60 px-4 py-3 sticky top-0 z-20 select-none">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-lg bg-zinc-900 dark:bg-zinc-50 flex items-center justify-center font-extrabold text-white dark:text-zinc-950 text-xs shadow-xs">
             C
@@ -242,7 +246,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
 
       {/* ==================== BOTTOM TAB BAR NAVIGATION NAVIGATION (Mobile Only) ==================== */}
-      <div className="md:hidden fixed bottom-0 inset-x-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-t border-zinc-200/80 dark:border-zinc-900 px-2 py-1.5 flex items-center justify-around z-30 select-none pb-safe-bottom">
+      <div className="md:hidden fixed bottom-0 inset-x-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-t border-zinc-100 dark:border-zinc-900/60 px-2 py-1.5 flex items-center justify-around z-30 select-none pb-safe-bottom">
         
         <button
           id="mobile-tab-home"
@@ -267,12 +271,14 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
 
         <button
-          id="mobile-tab-messages"
-          onClick={() => handleTabClick('messages')}
+          id="mobile-tab-inbox"
+          onClick={() => handleTabClick('inbox')}
           className={`relative flex flex-col items-center justify-center p-2 rounded-xl transition-all ${
-            currentTab === 'messages' ? 'text-zinc-950 dark:text-white font-extrabold scale-110' : 'text-zinc-400 hover:text-zinc-650'
+            currentTab === 'inbox' ? 'text-zinc-950 dark:text-white font-extrabold scale-110' : 'text-zinc-400 hover:text-zinc-650'
           }`}
           style={{ minHeight: '44px', minWidth: '44px' }}
+          title="Inbox"
+          aria-label="Inbox"
         >
           <MessageSquare className="w-5 h-5" />
           {/* Dynamic dynamic tiny notification dot on mobile */}

@@ -537,7 +537,7 @@ export const Feed: React.FC<FeedProps> = ({ selectedTag, setSelectedTag, current
 
   return (
     <div className="flex-1 overflow-y-auto w-full">
-      <div className="max-w-7xl mx-auto w-full p-4 md:p-8 flex flex-col md:flex-row gap-6 select-none">
+      <div className="max-w-7xl mx-auto w-full p-4 md:p-8 flex flex-col lg:flex-row gap-6 select-none">
       {/* Central feed timeline */}
       <div className="flex-1 flex flex-col min-w-0">
         
@@ -658,7 +658,7 @@ export const Feed: React.FC<FeedProps> = ({ selectedTag, setSelectedTag, current
                 ) : (hasMorePublic || hasMoreOwn) ? (
                   <button
                     onClick={fetchMoreMemos}
-                    className="text-xs font-semibold px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-205 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 rounded-xl transition-all cursor-pointer font-sans"
+                    className="text-xs font-semibold px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 rounded-xl transition-all cursor-pointer font-sans"
                   >
                     Load More circles
                   </button>
@@ -674,9 +674,9 @@ export const Feed: React.FC<FeedProps> = ({ selectedTag, setSelectedTag, current
       </div>
 
       {/* Sidebar: trending tags and organization */}
-      <div className="w-full md:w-80 shrink-0">
+      <div className="w-full lg:w-80 shrink-0">
         <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 sticky top-8 shadow-xs">
-          <div className="flex items-center gap-2 mb-4 border-b border-zinc-150 dark:border-zinc-800 pb-3">
+          <div className="flex items-center gap-2 mb-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
             <Hash className="w-4 h-4 text-zinc-900 dark:text-zinc-100" />
             <h3 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 font-sans">
               Trending Hashtags
@@ -713,7 +713,7 @@ export const Feed: React.FC<FeedProps> = ({ selectedTag, setSelectedTag, current
 
           {/* Who to Follow list - requested section */}
           {suggestedUsers.length > 0 && (
-            <div className="mt-6 border-t border-zinc-155 dark:border-zinc-800/80 pt-5 select-none">
+            <div className="mt-6 border-t border-zinc-100 dark:border-zinc-800/80 pt-5 select-none">
               <div className="flex items-center gap-2 mb-3">
                 <Users className="w-4 h-4 text-zinc-900 dark:text-zinc-100" />
                 <h3 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 font-sans">
@@ -725,12 +725,12 @@ export const Feed: React.FC<FeedProps> = ({ selectedTag, setSelectedTag, current
                 {suggestedUsers.map((sug) => (
                   <div 
                     key={sug.uid} 
-                    className="flex items-center justify-between gap-3 p-2 rounded-xl bg-zinc-50/40 dark:bg-zinc-950/20 hover:bg-zinc-50 dark:hover:bg-zinc-950 transition-all border border-zinc-150/40 dark:border-zinc-850/25"
+                    className="flex items-center justify-between gap-3 p-2 rounded-xl bg-zinc-50/40 dark:bg-zinc-950/20 hover:bg-zinc-50 dark:hover:bg-zinc-950 transition-all border border-zinc-100 dark:border-zinc-800/40"
                   >
                     {/* Left: Avatar with initials fallback */}
                     <div 
                       onClick={() => navigate('/' + sug.username)}
-                      className="w-9 h-9 rounded-full bg-zinc-105 dark:bg-zinc-800 flex items-center justify-center font-bold text-xs ring-1 ring-zinc-200 dark:ring-zinc-850 shrink-0 cursor-pointer overflow-hidden hover:scale-105 transition-all"
+                      className="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center font-bold text-xs ring-1 ring-zinc-200 dark:ring-zinc-800 shrink-0 cursor-pointer overflow-hidden hover:scale-105 transition-all"
                     >
                       {sug.avatarUrl ? (
                         <img 
@@ -791,7 +791,7 @@ export const Feed: React.FC<FeedProps> = ({ selectedTag, setSelectedTag, current
           )}
 
           {/* Quick instructions box matching Memos feel */}
-          <div className="mt-6 p-4 rounded-xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-150 dark:border-zinc-850 text-[11px] text-zinc-500 dark:text-zinc-400 leading-relaxed">
+          <div className="mt-6 p-4 rounded-xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-100 dark:border-zinc-800 text-[11px] text-zinc-500 dark:text-zinc-400 leading-relaxed">
             <p className="font-bold text-zinc-900 dark:text-zinc-100 mb-1 flex items-center gap-1.5 text-xs">
               💡 Microblogging Tip
             </p>

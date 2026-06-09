@@ -58,7 +58,7 @@ export const LinkPreview: React.FC<{ url: string }> = ({ url }) => {
 
   if (loading) {
     return (
-      <div className="flex items-center gap-3 p-3 border border-zinc-150 dark:border-zinc-800 rounded-xl bg-zinc-50/30 dark:bg-zinc-900/40 animate-pulse mt-2.5">
+      <div className="flex items-center gap-3 p-3 border border-zinc-100 dark:border-zinc-800 rounded-xl bg-zinc-50/30 dark:bg-zinc-900/40 animate-pulse mt-2.5">
         <RefreshCw className="w-4 h-4 text-zinc-400 dark:text-zinc-500 animate-spin" />
         <span className="text-zinc-400 dark:text-zinc-500 text-[11px] font-mono">
           Resolving metadata for {(() => {

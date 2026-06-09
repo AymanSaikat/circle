@@ -237,7 +237,7 @@ export const Search: React.FC = () => {
                   <div className="flex gap-2 border-t border-zinc-100 dark:border-zinc-800 pt-3 mt-1.5 justify-end">
                     <button
                       id={`btn-search-chat-${u.username}`}
-                      onClick={() => navigate('/messages?to=' + u.username)}
+                      onClick={() => navigate('/inbox?to=' + u.username)}
                       className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-xl transition-all cursor-pointer"
                     >
                       <MessageSquare className="w-3.5 h-3.5" />

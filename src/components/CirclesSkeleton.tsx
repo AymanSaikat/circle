@@ -23,7 +23,7 @@ export const CirclesSkeleton: React.FC = () => {
       </div>
 
       {/* Action buttons placeholder */}
-      <div className="flex items-center gap-6 mt-6 pt-3 border-t border-zinc-150 dark:border-zinc-800/60">
+      <div className="flex items-center gap-6 mt-6 pt-3 border-t border-zinc-100 dark:border-zinc-800/60">
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 shimmer rounded-full" />
           <div className="h-3 w-6 shimmer rounded" />

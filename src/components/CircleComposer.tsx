@@ -839,12 +839,12 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
                   )}
                 </div>
 
-                <div className="flex items-center justify-between border-t border-zinc-100 dark:border-zinc-850 pt-2.5 mt-1 text-[10px] text-zinc-450 dark:text-zinc-500 font-mono">
+                <div className="flex items-center justify-between border-t border-zinc-100 dark:border-zinc-800 pt-2.5 mt-1 text-[10px] text-zinc-450 dark:text-zinc-500 font-mono">
                   <span>Poll Duration:</span>
                   <select
                     value={pollDurationDays}
                     onChange={(e) => setPollDurationDays(Number(e.target.value))}
-                    className="p-1.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-805 rounded-lg text-[10px] font-mono text-zinc-800 dark:text-zinc-200 cursor-pointer"
+                    className="p-1.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-[10px] font-mono text-zinc-800 dark:text-zinc-200 cursor-pointer"
                   >
                     <option value={1}>1 Day</option>
                     <option value={3}>3 Days</option>
@@ -929,7 +929,7 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
                   onClick={() => setShowPollCreator(!showPollCreator)}
                   className={`p-2 rounded-lg transition-all cursor-pointer ${
                     showPollCreator 
-                      ? 'text-[#1877f2] dark:text-[#a8c7fa] bg-zinc-200/80 dark:bg-zinc-850' 
+                      ? 'text-[#1877f2] dark:text-[#a8c7fa] bg-zinc-200/80 dark:bg-zinc-800' 
                       : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-200/60 dark:hover:bg-zinc-900'
                   }`}
                   title="Create or attach a Poll"
@@ -944,7 +944,7 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
                   type="button"
                   onClick={() => setShowPicker(!showPicker)}
                   className={`p-2 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all cursor-pointer ${
-                    showPicker ? 'bg-zinc-200 dark:bg-zinc-855 text-zinc-900 dark:text-white' : ''
+                    showPicker ? 'bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-white' : ''
                   }`}
                   title="Choose an official emoji"
                 >
@@ -959,7 +959,7 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
                       <div className="w-12 h-1 bg-zinc-200 dark:bg-zinc-800 rounded-full mx-auto mt-4 mb-2 sm:hidden shrink-0" />
                       
                       {/* Popover Header */}
-                    <div className="p-3 border-b border-zinc-155 dark:border-zinc-850 bg-zinc-50/60 dark:bg-zinc-950/40 select-none flex flex-col gap-2">
+                    <div className="p-3 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-950/40 select-none flex flex-col gap-2">
                       <div className="flex items-center justify-between">
                         <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-mono">Android Emoji Pack</span>
                         <button
@@ -983,7 +983,7 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
 
                     {/* Category tabs if not searching */}
                     {!emojiSearchQuery && (
-                      <div className="flex items-center gap-1 overflow-x-auto px-2 py-1.5 bg-zinc-100/50 dark:bg-zinc-900/40 border-b border-zinc-100 dark:border-zinc-805 scrollbar-none select-none shrink-0">
+                      <div className="flex items-center gap-1 overflow-x-auto px-2 py-1.5 bg-zinc-100/50 dark:bg-zinc-900/40 border-b border-zinc-100 dark:border-zinc-800 scrollbar-none select-none shrink-0">
                         {EMOJI_PACKS.map((pack) => (
                           <button
                             key={pack.category}
@@ -1074,7 +1074,7 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
           </>
         ) : (
           /* Live Preview rendering block matching standard publications */
-          <div className="bg-zinc-50 dark:bg-zinc-950 p-6 rounded-2xl border border-zinc-200/70 dark:border-zinc-850/75 shadow-xs max-h-[300px] overflow-y-auto">
+          <div className="bg-zinc-50 dark:bg-zinc-950 p-6 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/75 shadow-xs max-h-[300px] overflow-y-auto">
             <div className="flex items-center gap-1 text-[9px] uppercase tracking-wider font-mono font-bold text-zinc-400 dark:text-zinc-550 mb-3 select-none">
               <Sparkles className="w-3.5 h-3.5 animate-pulse text-zinc-900 dark:text-white" />
               <span>Real-Time WYSIWYG Publication Preview</span>
@@ -1082,7 +1082,7 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
             {renderPreviewRenderer()}
 
             {mediaUrls.length > 0 && (
-              <div className="flex gap-2 overflow-x-auto pb-1 mt-4 border-t border-zinc-150 dark:border-zinc-850 pt-3">
+              <div className="flex gap-2 overflow-x-auto pb-1 mt-4 border-t border-zinc-100 dark:border-zinc-800 pt-3">
                 {mediaUrls.map((x, idx) => (
                   <div key={idx} className="w-14 h-14 rounded-lg bg-zinc-200 overflow-hidden border border-zinc-300 dark:border-zinc-800 shrink-0">
                     <img src={x} alt="pvw attachment" className="w-full h-full object-cover" />
@@ -1212,7 +1212,7 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 isScheduling
                   ? 'bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 border border-transparent shadow-xs font-black scale-102'
-                  : 'bg-zinc-100 dark:bg-zinc-950 border border-zinc-200/50 dark:border-zinc-850 text-zinc-550 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                  : 'bg-zinc-100 dark:bg-zinc-950 border border-zinc-200/50 dark:border-zinc-800 text-zinc-550 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
               }`}
             >
               <Clock className="w-3.5 h-3.5" />
@@ -1225,7 +1225,7 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
             <button
               type="button"
               onClick={() => setShowHelpGuide(!showHelpGuide)}
-              className="p-2 rounded-xl bg-zinc-50 dark:bg-zinc-950 hover:bg-zinc-100 dark:hover:bg-zinc-850 text-zinc-450 hover:text-zinc-905 dark:hover:text-white transition-all cursor-pointer"
+              className="p-2 rounded-xl bg-zinc-50 dark:bg-zinc-950 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-450 hover:text-zinc-905 dark:hover:text-white transition-all cursor-pointer"
               title="Markdown & Privacy formatting guide"
             >
               <HelpCircle className="w-4 h-4" />
@@ -1245,7 +1245,7 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
 
         {/* Markdown & Format Quick Cheat-sheet Drawer */}
         {showHelpGuide && (
-          <div className="bg-zinc-50 dark:bg-zinc-950 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-850 text-[11px] leading-relaxed text-zinc-600 dark:text-zinc-400 mt-2 select-text animate-fade-in font-sans">
+          <div className="bg-zinc-50 dark:bg-zinc-950 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-[11px] leading-relaxed text-zinc-600 dark:text-zinc-400 mt-2 select-text animate-fade-in font-sans">
             <h5 className="font-bold text-zinc-900 dark:text-white mb-2 uppercase tracking-wider text-[10px] flex items-center gap-1 select-none">
               <Sparkles className="w-3.5 h-3.5 text-zinc-900 dark:text-white" />
               Circle Style Guide & Privacy Handbook
@@ -1256,7 +1256,7 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
                 <ul className="list-disc pl-4 space-y-1">
                   <li>Use <strong className="font-bold text-zinc-900 dark:text-white">**word**</strong> to highlight keyword points in bold.</li>
                   <li>Use <em className="italic">*word*</em> for emphasizing terms.</li>
-                  <li>Use <code className="bg-zinc-200/60 dark:bg-zinc-850 px-1 rounded font-mono font-bold">`yourCode`</code> for inline monospace text.</li>
+                  <li>Use <code className="bg-zinc-200/60 dark:bg-zinc-800 px-1 rounded font-mono font-bold">`yourCode`</code> for inline monospace text.</li>
                   <li>Start lines with <strong className="font-bold text-zinc-800 dark:text-zinc-300">&gt; Quote</strong> to trigger clean quotes.</li>
                 </ul>
               </div>
@@ -1269,7 +1269,7 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
                 </ul>
               </div>
             </div>
-            <p className="mt-3 border-t border-zinc-205 dark:border-zinc-850 pt-2 text-[10px] text-zinc-450 dark:text-zinc-505 select-none font-mono">
+            <p className="mt-3 border-t border-zinc-200 dark:border-zinc-800 pt-2 text-[10px] text-zinc-450 dark:text-zinc-505 select-none font-mono">
               Auto-saved draft values are automatically restored if you close or refresh this page.
             </p>
           </div>
@@ -1283,7 +1283,7 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
           <div className="w-full sm:max-w-md bg-white dark:bg-zinc-900 border-t sm:border border-zinc-200 dark:border-zinc-800 rounded-t-3xl sm:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.15)] sm:shadow-2xl p-6 sm:p-6 relative flex flex-col gap-4 animate-in slide-in-from-bottom-8 sm:slide-in-from-bottom-0 sm:fade-in sm:zoom-in-95 text-zinc-900 dark:text-white select-none pb-safe-bottom">
             <div className="w-12 h-1 bg-zinc-200 dark:bg-zinc-800 rounded-full mx-auto mb-2 sm:hidden shrink-0" />
             {/* Header / Nav */}
-            <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-855 pb-4">
+            <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
               <button
                 type="button"
                 onClick={() => setShowScheduleModal(false)}
@@ -1332,7 +1332,7 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
                 onClick={() => setActivePickerTab('time')}
                 className={`flex flex-col gap-1.5 p-3.5 rounded-2xl border text-left cursor-pointer transition-all ${
                   activePickerTab === 'time'
-                    ? 'border-zinc-950 dark:border-white bg-zinc-50/50 dark:bg-zinc-955/40 ring-1 ring-zinc-900/10 dark:ring-white/10 shadow-xs'
+                    ? 'border-zinc-950 dark:border-white bg-zinc-50/50 dark:bg-zinc-900/40 ring-1 ring-zinc-900/10 dark:ring-white/10 shadow-xs'
                     : 'border-zinc-200 hover:border-zinc-350 dark:border-zinc-800 dark:hover:border-zinc-750 bg-white/20 dark:bg-zinc-900/20'
                 }`}
               >
@@ -1347,7 +1347,7 @@ export const CircleComposer: React.FC<CircleComposerProps> = ({ onSuccess }) => 
             </div>
 
             {/* Custom high contrast iOS wheel select pickers */}
-            <div className="bg-zinc-50/50 dark:bg-zinc-950/20 border border-zinc-205 dark:border-zinc-850/60 rounded-2xl p-4 flex flex-col items-center justify-center relative min-h-[190px]">
+            <div className="bg-zinc-50/50 dark:bg-zinc-950/20 border border-zinc-200 dark:border-zinc-800/60 rounded-2xl p-4 flex flex-col items-center justify-center relative min-h-[190px]">
               {activePickerTab === 'date' ? (
                 /* DATE CUSTOM WHEEL SCROLL PICKER */
                 <div className="flex gap-4 w-full h-[140px] relative select-none">

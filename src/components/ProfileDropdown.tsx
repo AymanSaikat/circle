@@ -76,12 +76,12 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
         type="button"
         id="reusable-profile-trigger"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-zinc-50/80 dark:bg-zinc-900/40 hover:bg-zinc-100/80 dark:hover:bg-zinc-900/80 border border-zinc-200/85 dark:border-zinc-850 rounded-2xl p-2.5 flex items-center justify-center hover:shadow-xs active:scale-[0.99] transition-all duration-300 cursor-pointer group select-none"
+        className="w-full bg-zinc-50/80 dark:bg-zinc-900/40 hover:bg-zinc-100/80 dark:hover:bg-zinc-900/80 border border-zinc-200/50 dark:border-zinc-800/80 rounded-2xl p-2.5 flex items-center justify-center hover:shadow-xs active:scale-[0.99] transition-all duration-300 cursor-pointer group select-none"
       >
         <img
           src={profile.avatarUrl}
           alt={profile.displayName}
-          className="w-11 h-11 rounded-full object-cover border border-zinc-200/80 dark:border-zinc-855 shadow-xs bg-zinc-100 dark:bg-zinc-850 transition-transform group-hover:scale-105 duration-300"
+          className="w-11 h-11 rounded-full object-cover border border-zinc-200/50 dark:border-zinc-800/80 shadow-xs bg-zinc-100 dark:bg-zinc-850 transition-transform group-hover:scale-105 duration-300"
           referrerPolicy="no-referrer"
         />
       </button>
@@ -95,7 +95,7 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
             transition={{ duration: 0.15, ease: 'easeOut' }}
             id="reusable-profile-popover"
-            className="absolute bottom-full mb-3 left-0 w-full bg-white dark:bg-zinc-950 border border-zinc-200/90 dark:border-zinc-850 rounded-2xl p-3 shadow-2xl flex flex-col gap-3 z-40 select-none text-zinc-900 dark:text-zinc-50"
+            className="absolute bottom-full mb-3 left-0 w-full bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-3 shadow-2xl flex flex-col gap-3 z-40 select-none text-zinc-900 dark:text-zinc-50"
           >
             {/* Header: Identity Info */}
             <div className="px-2 py-1.5 border-b border-zinc-100 dark:border-zinc-900 flex flex-col gap-0.5">

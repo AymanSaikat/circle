@@ -383,7 +383,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
             // Italic (*italic*)
             if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
               return (
-                <em key={pIdx} className="italic text-zinc-750 dark:text-zinc-350">
+                <em key={pIdx} className="italic text-zinc-700 dark:text-zinc-350">
                   {part.slice(1, -1)}
                 </em>
               );
@@ -392,7 +392,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
             // Inline Code (`code`)
             if (part.startsWith('`') && part.endsWith('`') && part.length > 2) {
               return (
-                <code key={pIdx} className="bg-zinc-150 dark:bg-zinc-800 text-red-600 dark:text-red-400 px-1.5 py-0.5 rounded font-mono text-[10px] font-bold">
+                <code key={pIdx} className="bg-zinc-100 dark:bg-zinc-800 text-red-600 dark:text-red-400 px-1.5 py-0.5 rounded font-mono text-[10px] font-bold">
                   {part.slice(1, -1)}
                 </code>
               );
@@ -419,7 +419,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
                 <button
                   key={pIdx}
                   onClick={() => onTagClick(cleanTag)}
-                  className="text-zinc-950 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-850 hover:underline px-1 py-0.5 rounded font-extrabold cursor-pointer inline-block"
+                  className="text-zinc-950 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800 hover:underline px-1 py-0.5 rounded font-extrabold cursor-pointer inline-block"
                 >
                   {part}
                 </button>
@@ -539,7 +539,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
     };
 
     return (
-      <div className="mt-4 p-4 rounded-2xl bg-zinc-50/60 dark:bg-zinc-950/40 border border-zinc-200/50 dark:border-zinc-850 flex flex-col gap-3 select-none">
+      <div className="mt-4 p-4 rounded-2xl bg-zinc-50/60 dark:bg-zinc-950/40 border border-zinc-200/50 dark:border-zinc-800/80 flex flex-col gap-3 select-none">
         <div className="flex items-center gap-1.5 text-zinc-400 dark:text-zinc-550 font-mono text-[9px] font-bold uppercase tracking-wider select-none">
           <BarChart3 className="w-3.5 h-3.5 text-[#1877f2]" />
           <span>Active Community Poll</span>
@@ -564,7 +564,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
                   disabled={isExpired || !user}
                   type="button"
                   onClick={() => handleVote(idx)}
-                  className="relative overflow-hidden w-full h-10 border border-zinc-200/60 dark:border-zinc-805 rounded-xl bg-white dark:bg-zinc-900 text-left transition-all hover:border-zinc-300 dark:hover:border-zinc-700 cursor-pointer flex items-center justify-between px-4 group"
+                  className="relative overflow-hidden w-full h-10 border border-zinc-200/60 dark:border-zinc-800/80 rounded-xl bg-white dark:bg-zinc-900 text-left transition-all hover:border-zinc-300 dark:hover:border-zinc-700 cursor-pointer flex items-center justify-between px-4 group"
                 >
                   <div 
                     className="absolute top-0 left-0 bottom-0 bg-blue-50/70 dark:bg-blue-950/20 transition-all duration-500 ease-out z-0"
@@ -594,7 +594,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
                 key={idx}
                 type="button"
                 onClick={() => handleVote(idx)}
-                className="w-full h-10 border border-zinc-200/80 dark:border-zinc-800/80 rounded-xl bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-850/40 text-left text-xs font-semibold text-zinc-700 dark:text-zinc-300 px-4 transition-all hover:border-zinc-500 dark:hover:border-zinc-500 cursor-pointer active:scale-[0.99]"
+                className="w-full h-10 border border-zinc-200/80 dark:border-zinc-800/80 rounded-xl bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800/40 text-left text-xs font-semibold text-zinc-700 dark:text-zinc-300 px-4 transition-all hover:border-zinc-500 dark:hover:border-zinc-500 cursor-pointer active:scale-[0.99]"
               >
                 {opt}
               </button>
@@ -664,7 +664,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
 
   if (isHidden) {
     return (
-      <div className="bg-zinc-50 dark:bg-zinc-950/40 border border-zinc-200 dark:border-zinc-850 rounded-2xl p-5 text-center text-xs text-zinc-500 dark:text-zinc-450 select-none animate-fade-in flex items-center justify-between">
+      <div className="bg-zinc-50 dark:bg-zinc-950/40 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 text-center text-xs text-zinc-500 dark:text-zinc-400 select-none animate-fade-in flex items-center justify-between">
         <span className="font-medium">This Circle post has been hidden from your timeline.</span>
         <button 
           onClick={() => setIsHidden(false)} 
@@ -685,7 +685,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
             src={memo.avatarUrl}
             alt={memo.displayName}
             onClick={() => navigate('/' + memo.username)}
-            className="w-10 h-10 rounded-full object-cover border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-805 shadow-xs cursor-pointer hover:opacity-85 transition-opacity"
+            className="w-10 h-10 rounded-full object-cover border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800 shadow-xs cursor-pointer hover:opacity-85 transition-opacity"
           />
           <div className="min-w-0">
             <div 
@@ -868,7 +868,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
       </div>
 
       {/* Circle body/content */}
-      <div className={`mt-4 text-zinc-850 dark:text-zinc-200 leading-relaxed whitespace-pre-wrap select-text break-words font-sans ${
+      <div className={`mt-4 text-zinc-800 dark:text-zinc-200 leading-relaxed whitespace-pre-wrap select-text break-words font-sans ${
         fontSize === 'normal' ? 'text-sm' : fontSize === 'lg' ? 'text-base' : 'text-lg'
       }`}>
         {renderFormattedContent(memo.content)}
@@ -876,7 +876,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
 
       {/* Translation banner if active */}
       {translation && (
-        <div className="mt-4 p-3 bg-zinc-50/70 dark:bg-zinc-950/70 rounded-xl border border-zinc-200/50 dark:border-zinc-850 text-xs text-zinc-650 dark:text-zinc-350 leading-relaxed italic animate-fade-in select-text">
+        <div className="mt-4 p-3 bg-zinc-50/70 dark:bg-zinc-950/70 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed italic animate-fade-in select-text">
           <div className="flex items-center gap-1 text-zinc-400 dark:text-zinc-500 font-mono text-[9px] font-bold uppercase tracking-wider mb-1 select-none">
             <Languages className="w-3.5 h-3.5" />
             <span>Translated Block</span>
@@ -898,7 +898,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
       {renderMediaGrid()}
 
       {/* Interaction Metrics Footer */}
-      <div className="flex items-center gap-6 mt-4 pt-3 border-t border-zinc-150 dark:border-zinc-800">
+      <div className="flex items-center gap-6 mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800">
         <button
           id={`btn-like-${memo.id}`}
           onClick={handleLikeToggle}
@@ -956,7 +956,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
 
       {/* Reactive Comments Panel / Nested drawer */}
       {showComments && (
-        <div id={`comments-panel-${memo.id}`} className="mt-4 pt-4 border-t border-zinc-150 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 rounded-2xl p-4">
+        <div id={`comments-panel-${memo.id}`} className="mt-4 pt-4 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 rounded-2xl p-4">
           <h3 className="text-[10px] font-bold text-zinc-450 dark:text-zinc-500 uppercase tracking-widest mb-3 select-none">
             Comments
           </h3>
@@ -974,7 +974,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
                     src={c.avatarUrl}
                     alt={c.displayName}
                     onClick={() => navigate('/' + c.username)}
-                    className="w-7 h-7 rounded-full object-cover mt-0.5 bg-zinc-150 dark:bg-zinc-800 cursor-pointer hover:opacity-85 transition-opacity shrink-0"
+                    className="w-7 h-7 rounded-full object-cover mt-0.5 bg-zinc-100 dark:bg-zinc-800 cursor-pointer hover:opacity-85 transition-opacity shrink-0"
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5 flex-wrap">
@@ -1018,7 +1018,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
                 placeholder="Write an elegant response..."
-                className="flex-1 bg-white dark:bg-zinc-900 border border-zinc-205 dark:border-zinc-850 text-zinc-900 dark:text-zinc-100 rounded-xl px-3 py-2 text-xs placeholder-zinc-450 focus:outline-none focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-900/10 dark:focus:ring-white/10"
+                className="flex-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 rounded-xl px-3 py-2 text-xs placeholder-zinc-400 focus:outline-none focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-900/10 dark:focus:ring-white/10"
                 maxLength={2000}
               />
               <button
@@ -1061,7 +1061,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
               <img
                 src={memo.avatarUrl}
                 alt={memo.displayName}
-                className="w-12 h-12 rounded-full object-cover border border-zinc-150 dark:border-zinc-800"
+                className="w-12 h-12 rounded-full object-cover border border-zinc-200 dark:border-zinc-800"
               />
               <div>
                 <h3 className="font-bold text-base text-zinc-900 dark:text-white leading-tight">
@@ -1098,7 +1098,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
 
             {/* Translation under-screen */}
             {translation && (
-              <div className="p-4 bg-zinc-50 dark:bg-zinc-950/50 rounded-2xl border border-zinc-200/50 dark:border-zinc-850 text-xs text-zinc-600 dark:text-zinc-350 leading-relaxed italic mb-8 select-text animate-fade-in">
+              <div className="p-4 bg-zinc-50 dark:bg-zinc-950/50 rounded-2xl border border-zinc-200/50 dark:border-zinc-800 text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed italic mb-8 select-text animate-fade-in">
                 <div className="flex items-center gap-1.5 text-zinc-400 dark:text-zinc-500 text-[10px] uppercase font-bold tracking-widest mb-1.5 font-mono select-none">
                   <Languages className="w-3 h-3" />
                   <span>Reader Translation</span>
@@ -1108,7 +1108,7 @@ export const CircleCard: React.FC<CircleCardProps> = ({ memo, onTagClick, onDele
             )}
 
             {/* Footer option details */}
-            <div className="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-150 dark:border-zinc-800 pt-6 text-[11px] font-bold text-zinc-400 dark:text-zinc-550 uppercase tracking-widest font-mono">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-100 dark:border-zinc-800 pt-6 text-[11px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest font-mono">
               <span className="flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5" />
                 Published {formatTimestamp(memo.createdAt)}
