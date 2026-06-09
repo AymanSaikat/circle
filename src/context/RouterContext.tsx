@@ -18,6 +18,13 @@ export const useRouter = () => {
 export const RouterProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const getCleanPath = () => {
     let p = window.location.pathname || '/';
+    // @ts-ignore
+    const base = import.meta.env.BASE_URL || '/';
+    if (base !== '/' && p.startsWith(base)) {
+      p = '/' + p.slice(base.length);
+    } else if (base !== '/' && p + '/' === base) {
+      p = '/';
+    }
     if (p.length > 1 && p.endsWith('/')) {
       p = p.slice(0, -1);
     }
@@ -42,7 +49,13 @@ export const RouterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     if (clean.length > 1 && clean.endsWith('/')) {
       clean = clean.slice(0, -1);
     }
-    window.history.pushState(null, '', clean);
+    
+    // @ts-ignore
+    const base = import.meta.env.BASE_URL || '/';
+    // The history api needs the full mapped url
+    const mappedUrl = base === '/' ? clean : `${base.replace(/\/$/, '')}${clean}`;
+    
+    window.history.pushState(null, '', mappedUrl);
     setPath(clean);
   };
 

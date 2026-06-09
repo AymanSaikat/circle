@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search as SearchIcon, UserPlus, UserCheck, Sparkles, Hash, MessageSquare, AlertCircle } from 'lucide-react';
-import { collection, query, getDocs, doc, setDoc, deleteDoc, onSnapshot, serverTimestamp } from 'firebase/firestore';
+import { collection, query, getDocs, doc, setDoc, deleteDoc, onSnapshot, serverTimestamp, where } from 'firebase/firestore';
 import { db } from '../firebaseClient';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from '../context/RouterContext';
