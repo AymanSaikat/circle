@@ -188,7 +188,8 @@ export const Profile: React.FC<ProfileProps> = ({ onTagClick, targetUserId }) =>
   }
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 md:p-8 max-w-5xl mx-auto w-full select-none">
+    <div className="flex-1 overflow-y-auto w-full">
+      <div className="max-w-5xl mx-auto w-full p-4 md:p-8 select-none">
       
       {/* Profile Detail header card */}
       <div className="bg-white dark:bg-zinc-900 border border-zinc-205 dark:border-zinc-800 rounded-2xl p-6 md:p-8 shadow-xs mb-6 relative overflow-hidden">
@@ -425,6 +426,7 @@ export const Profile: React.FC<ProfileProps> = ({ onTagClick, targetUserId }) =>
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 };

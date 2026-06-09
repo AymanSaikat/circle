@@ -152,7 +152,8 @@ export const Search: React.FC = () => {
   });
 
   return (
-    <div className="flex-1 overflow-y-auto bg-zinc-50 dark:bg-zinc-950/10 p-4 md:p-8 max-w-4xl mx-auto w-full select-none">
+    <div className="flex-1 overflow-y-auto bg-zinc-50 dark:bg-zinc-950/10 w-full">
+      <div className="max-w-4xl mx-auto w-full p-4 md:p-8 select-none">
       <div className="mb-6 flex flex-col gap-1">
         <h2 className="text-2xl font-bold font-sans tracking-tight text-zinc-900 dark:text-zinc-50 flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-zinc-900 dark:text-zinc-50" />
@@ -292,6 +293,7 @@ export const Search: React.FC = () => {
           </div>
         )
       )}
+      </div>
     </div>
   );
 };
