@@ -13,6 +13,7 @@ export const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [rememberMe, setRememberMe] = useState(true);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,7 +52,7 @@ export const Login: React.FC = () => {
 
         await signUpWithEmail(cleanEmail, cleanPassword, cleanUser, cleanDisplay);
       } else {
-        await signInWithEmail(cleanEmail, cleanPassword);
+        await signInWithEmail(cleanEmail, cleanPassword, rememberMe);
       }
     } catch (err: any) {
       console.error(err);
@@ -94,7 +95,7 @@ export const Login: React.FC = () => {
       
       {/* Left Form Section */}
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6 sm:p-12 z-10 relative bg-zinc-50 dark:bg-zinc-950">
-        <div className="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-205 dark:border-zinc-800 rounded-3xl p-8 shadow-xs relative transition-all">
+        <div className="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-8 shadow-xs relative transition-all">
           
           {/* Brand identity */}
           <div className="flex flex-col items-center text-center gap-2 mb-8">
@@ -120,7 +121,7 @@ export const Login: React.FC = () => {
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">Username</label>
                   <div className="relative">
-                    <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-zinc-450 dark:text-zinc-550 text-xs font-bold font-mono">@</span>
+                    <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-zinc-400 dark:text-zinc-500 text-xs font-bold font-mono">@</span>
                     <input
                       id="input-signup-username"
                       type="text"
@@ -128,7 +129,7 @@ export const Login: React.FC = () => {
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       placeholder="john_doe"
-                      className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-250/80 dark:border-zinc-800 rounded-xl pl-8 pr-4 py-2.5 text-xs text-zinc-900 dark:text-zinc-105 focus:outline-none focus:border-zinc-950 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-950/10 dark:focus:ring-white/10 transition-all placeholder-zinc-455 dark:placeholder-zinc-500 font-medium"
+                      className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl pl-8 pr-4 py-2.5 text-xs text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-zinc-950 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-950/10 dark:focus:ring-white/10 transition-all placeholder-zinc-400 dark:placeholder-zinc-500 font-medium"
                       disabled={loading}
                     />
                   </div>
@@ -138,7 +139,7 @@ export const Login: React.FC = () => {
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">Display Name</label>
                   <div className="relative">
-                    <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-zinc-455 dark:text-zinc-500">
+                    <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-zinc-400 dark:text-zinc-500">
                       <User className="w-3.5 h-3.5" />
                     </span>
                     <input
@@ -148,7 +149,7 @@ export const Login: React.FC = () => {
                       value={displayName}
                       onChange={(e) => setDisplayName(e.target.value)}
                       placeholder="John Doe"
-                      className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-250/80 dark:border-zinc-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-zinc-900 dark:text-zinc-105 focus:outline-none focus:border-zinc-950 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-950/10 dark:focus:ring-white/10 transition-all placeholder-zinc-455 dark:placeholder-zinc-500 font-medium"
+                      className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-zinc-950 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-950/10 dark:focus:ring-white/10 transition-all placeholder-zinc-400 dark:placeholder-zinc-500 font-medium"
                       disabled={loading}
                     />
                   </div>
@@ -170,7 +171,7 @@ export const Login: React.FC = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.com"
-                  className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-250/80 dark:border-zinc-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-zinc-900 dark:text-zinc-105 focus:outline-none focus:border-zinc-950 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-950/10 dark:focus:ring-white/10 transition-all placeholder-zinc-455 dark:placeholder-zinc-500 font-medium"
+                  className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-zinc-950 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-950/10 dark:focus:ring-white/10 transition-all placeholder-zinc-400 dark:placeholder-zinc-500 font-medium"
                   disabled={loading}
                 />
               </div>
@@ -184,7 +185,7 @@ export const Login: React.FC = () => {
                     <button 
                       type="button" 
                       onClick={() => { setIsResetPassword(true); setError(null); setMessage(null); }}
-                      className="text-[10px] text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 underline"
+                      className="text-[10px] text-zinc-650 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 underline"
                     >
                       Forgot Password?
                     </button>
@@ -201,21 +202,40 @@ export const Login: React.FC = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-250/80 dark:border-zinc-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-zinc-900 dark:text-zinc-105 focus:outline-none focus:border-zinc-950 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-950/10 dark:focus:ring-white/10 transition-all placeholder-zinc-455 dark:placeholder-zinc-500 font-medium"
+                    className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-zinc-950 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-950/10 dark:focus:ring-white/10 transition-all placeholder-zinc-400 dark:placeholder-zinc-500 font-medium"
                     disabled={loading}
                   />
                 </div>
               </div>
             )}
 
+            {!isRegister && !isResetPassword && (
+              <div className="flex items-center gap-2.5 mt-1.5 select-none animate-in fade-in duration-200">
+                <input
+                  type="checkbox"
+                  id="checkbox-remember-me"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="w-4 h-4 rounded-md border border-zinc-300 dark:border-zinc-800 text-zinc-900 dark:text-white focus:ring-zinc-950 dark:focus:ring-white/20 accent-zinc-900 bg-zinc-50 dark:bg-zinc-950 transition-all cursor-pointer"
+                  disabled={loading}
+                />
+                <label 
+                  htmlFor="checkbox-remember-me"
+                  className="text-xs font-bold text-zinc-500 dark:text-zinc-400 cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors"
+                >
+                  Remember Me
+                </label>
+              </div>
+            )}
+
             {error && (
-              <div className="bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/40 p-3 rounded-xl text-[11px] text-red-650 dark:text-red-400 font-mono font-bold break-words whitespace-pre-wrap">
+              <div className="bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/40 p-3 rounded-xl text-[11px] text-red-600 dark:text-red-400 font-mono font-bold break-words whitespace-pre-wrap">
                 {error}
               </div>
             )}
 
             {message && (
-              <div className="bg-green-50 dark:bg-green-950/20 border border-green-100 dark:border-green-900/40 p-3 rounded-xl text-[11px] text-green-650 dark:text-green-400 font-mono font-bold">
+              <div className="bg-green-50 dark:bg-green-950/20 border border-green-100 dark:border-green-900/40 p-3 rounded-xl text-[11px] text-green-600 dark:text-green-400 font-mono font-bold">
                 {message}
               </div>
             )}
@@ -225,7 +245,7 @@ export const Login: React.FC = () => {
               type="submit"
               id="btn-auth-submit"
               disabled={loading}
-              className="w-full mt-2 py-3 rounded-xl font-bold bg-zinc-900 dark:bg-zinc-105 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 shadow-md shadow-zinc-200/50 dark:shadow-none transition-all text-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+              className="w-full mt-2 py-3 rounded-xl font-bold bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 shadow-md shadow-zinc-200/50 dark:shadow-none transition-all text-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
             >
               {isResetPassword ? <Mail className="w-4 h-4" /> : isRegister ? <UserPlus className="w-4 h-4" /> : <LogIn className="w-4 h-4" />}
               <span>{loading ? 'Processing...' : isResetPassword ? 'Send Reset Link' : isRegister ? 'Create Account' : 'Sign In'}</span>
@@ -249,7 +269,7 @@ export const Login: React.FC = () => {
                 id="btn-auth-google"
                 onClick={handleGoogleSignIn}
                 disabled={loading}
-                className="w-full py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-850 text-zinc-700 dark:text-zinc-300 font-bold text-xs flex items-center justify-center gap-2.5 transition-all cursor-pointer"
+                className="w-full py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-bold text-xs flex items-center justify-center gap-2.5 transition-all cursor-pointer"
               >
                 {/* Custom vector Google Icon */}
                 <svg className="w-4 h-4" viewBox="0 0 24 24">

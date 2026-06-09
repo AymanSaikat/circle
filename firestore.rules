@@ -111,15 +111,12 @@ service cloud.firestore {
       allow list: if isSignedIn();
       allow create: if isVerified() 
         && userId == request.auth.uid 
-        && isValidProfile(incoming())
-        && incoming().createdAt == request.time
-        && incoming().updatedAt == request.time;
+        && isValidProfile(incoming());
       
       allow update: if isVerified()
         && userId == request.auth.uid
         && isValidProfile(incoming())
         && incoming().createdAt == existing().createdAt
-        && incoming().updatedAt == request.time
         && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'avatarUrl', 'bio', 'username', 'updatedAt']);
       
       allow delete: if false; // Profiles cannot be hard-deleted via client
@@ -143,8 +140,7 @@ service cloud.firestore {
       allow create: if isVerified()
         && isValidId(username)
         && isValidUsernameClaim(incoming())
-        && incoming().userId == request.auth.uid
-        && incoming().createdAt == request.time;
+        && incoming().userId == request.auth.uid;
       allow update: if isVerified()
         && existing().userId == request.auth.uid
         && incoming().userId == request.auth.uid

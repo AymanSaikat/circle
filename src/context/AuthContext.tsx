@@ -8,7 +8,10 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
-  updateProfile as updateAuthProfile
+  updateProfile as updateAuthProfile,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence
 } from 'firebase/auth';
 import { 
   doc, 
@@ -31,7 +34,7 @@ interface AuthContextType {
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
   signUpWithEmail: (email: string, password: string, username: string, displayName: string) => Promise<void>;
-  signInWithEmail: (email: string, password: string) => Promise<void>;
+  signInWithEmail: (email: string, password: string, rememberMe?: boolean) => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   logOut: () => Promise<void>;
   saveProfile: (displayName: string, bio: string, avatarUrl: string, newUsername?: string) => Promise<void>;
@@ -167,7 +170,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const batch = writeBatch(db);
       batch.set(claimRef, claimData);
       batch.set(userRef, profileData);
-      await batch.commit();
+      
+      try {
+        await batch.commit();
+      } catch (err: any) {
+        handleFirestoreError(err, OperationType.CREATE, `users/${newUser.uid}`);
+      }
 
       setProfile({ id: newUser.uid, ...profileData } as any);
       setUser(newUser);
@@ -186,8 +194,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const signInWithEmail = async (email: string, password: string) => {
+  const signInWithEmail = async (email: string, password: string, rememberMe: boolean = true) => {
     try {
+      const persistence = rememberMe ? browserLocalPersistence : browserSessionPersistence;
+      await setPersistence(auth, persistence);
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.error('Sign in error:', error);
