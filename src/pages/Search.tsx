@@ -56,14 +56,26 @@ export const Search: React.FC = () => {
         setAllUsers(uList);
 
         // Fetch public/visible memos
-        const memosSnap = await getDocs(collection(db, 'memos'));
+        const memosRef = collection(db, 'memos');
+        
+        // Split queries to satisfy firestore security rules
+        const pubSnap = await getDocs(query(memosRef, where('visibility', 'in', ['public', 'followers'])));
+        const ownSnap = await getDocs(query(memosRef, where('userId', '==', user.uid)));
+        
         const mList: Memo[] = [];
-        memosSnap.forEach(d => {
-          const data = d.data() as any;
-          if (data.visibility === 'public' || data.userId === user.uid) {
-            mList.push({ id: d.id, ...data } as Memo);
+        const addedIds = new Set<string>();
+        
+        pubSnap.forEach(d => {
+          addedIds.add(d.id);
+          mList.push({ id: d.id, ...d.data() } as Memo);
+        });
+        
+        ownSnap.forEach(d => {
+          if (!addedIds.has(d.id)) {
+            mList.push({ id: d.id, ...d.data() } as Memo);
           }
         });
+        
         // Sort chronologically
         mList.sort((a, b) => {
           const timeA = a.createdAt?.seconds || 0;

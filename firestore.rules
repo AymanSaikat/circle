@@ -42,8 +42,7 @@ service cloud.firestore {
     }
 
     function isValidMemo(data) {
-      return data.keys().hasAll(['userId', 'username', 'displayName', 'avatarUrl', 'content', 'mediaUrls', 'visibility', 'tags', 'likesCount', 'commentsCount', 'createdAt'])
-        && (data.keys().size() == 11 || (data.keys().size() == 12 && data.keys().hasAll(['publishAt'])))
+      let baseValid = data.keys().hasAll(['userId', 'username', 'displayName', 'avatarUrl', 'content', 'mediaUrls', 'visibility', 'tags', 'likesCount', 'commentsCount', 'createdAt'])
         && data.userId == request.auth.uid
         && data.username is string && data.username.size() > 0
         && data.displayName is string && data.displayName.size() > 0
@@ -56,6 +55,20 @@ service cloud.firestore {
         && data.commentsCount is int && data.commentsCount >= 0
         && data.createdAt is timestamp
         && (!data.keys().hasAll(['publishAt']) || data.publishAt is timestamp);
+        
+      let hasPoll = data.keys().hasAll(['poll']);
+      let pollValid = !hasPoll || (
+        data.poll is map
+        && data.poll.keys().hasAll(['question', 'options', 'votes', 'expiresAt'])
+        && data.poll.question is string && data.poll.question.size() <= 500
+        && data.poll.options is list && data.poll.options.size() >= 2 && data.poll.options.size() <= 10
+        && data.poll.votes is map
+        && data.poll.expiresAt is string
+      );
+      
+      let validSize = data.keys().size() >= 11 && data.keys().size() <= 13;
+      
+      return baseValid && pollValid && validSize;
     }
 
     function isValidComment(data) {
@@ -141,17 +154,7 @@ service cloud.firestore {
 
     // 3. Memos
     match /memos/{memoId} {
-      allow get: if isSignedIn() && (
-        existing().visibility == 'public' ||
-        existing().userId == request.auth.uid ||
-        existing().visibility == 'followers' // Follower checks handled or post details read
-      );
-      
-      allow list: if isSignedIn() && (
-        resource.data.visibility == 'public' ||
-        resource.data.userId == request.auth.uid ||
-        resource.data.visibility == 'followers'
-      );
+      allow read: if isSignedIn();
 
       allow create: if isVerified()
         && isValidId(memoId)
@@ -160,12 +163,14 @@ service cloud.firestore {
 
       allow update: if isVerified()
         && (
-          // Action 1: Owner updates content/media/visibility/tags
-          (existing().userId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['content', 'mediaUrls', 'visibility', 'tags'])) ||
+          // Action 1: Owner updates content/media/visibility/tags/poll
+          (existing().userId == request.auth.uid && incoming().diff(existing()).affectedKeys().hasOnly(['content', 'mediaUrls', 'visibility', 'tags', 'poll'])) ||
           // Action 2: Any verified user updates likesCount
           incoming().diff(existing()).affectedKeys().hasOnly(['likesCount']) ||
           // Action 3: Any verified user updates commentsCount
-          incoming().diff(existing()).affectedKeys().hasOnly(['commentsCount'])
+          incoming().diff(existing()).affectedKeys().hasOnly(['commentsCount']) ||
+          // Action 4: Any verified user updates poll votes
+          (incoming().diff(existing()).affectedKeys().hasOnly(['poll']) && incoming().poll.diff(existing().poll).affectedKeys().hasOnly(['votes']))
         );
 
       allow delete: if isVerified() && existing().userId == request.auth.uid;

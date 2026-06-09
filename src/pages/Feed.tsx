@@ -134,7 +134,7 @@ export const Feed: React.FC<FeedProps> = ({ selectedTag, setSelectedTag, current
 
         // C. Load list of memos to extract hashtag history mapped to userIds
         const memosRef = collection(db, 'memos');
-        const memosSnap = await getDocs(query(memosRef, limit(150)));
+        const memosSnap = await getDocs(query(memosRef, where('visibility', '==', 'public'), limit(150)));
         const userHashtagsMap: Record<string, Set<string>> = {};
         
         memosSnap.forEach(d => {
