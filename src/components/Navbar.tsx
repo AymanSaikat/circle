@@ -39,6 +39,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   const { profile, logOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [showMoreMenu, setShowMoreMenu] = useState(false);
+  const [metaClicked, setMetaClicked] = useState(false);
+  const [helpClicked, setHelpClicked] = useState(false);
   const moreMenuRef = useRef<HTMLDivElement>(null);
 
   // Close "More" dropdown when clicking outside
@@ -240,25 +242,29 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 id="btn-more-meta-trigger"
                 onClick={() => {
-                  alert("Protocol version 1.0.5 - Secure peer P2P social client. Powered by Firestore.");
-                  setShowMoreMenu(false);
+                  setMetaClicked(true);
+                  setTimeout(() => setMetaClicked(false), 4000);
                 }}
                 className="flex items-center gap-2.5 w-full text-left px-2.5 py-2 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-800/50 rounded-xl transition-all cursor-pointer"
               >
                 <Info className="w-4 h-4 text-zinc-400 dark:text-zinc-500" />
-                <span>System Manifest Info</span>
+                <span className={metaClicked ? "text-[#1877f2] font-mono text-[11px]" : ""}>
+                  {metaClicked ? "v1.0.5 • Secure client" : "System Manifest Info"}
+                </span>
               </button>
 
               <button
                 id="btn-more-help-trigger"
                 onClick={() => {
-                  alert("Need help? Access the peer nodes repository or compose custom private notes.");
-                  setShowMoreMenu(false);
+                  setHelpClicked(true);
+                  setTimeout(() => setHelpClicked(false), 4000);
                 }}
                 className="flex items-center gap-2.5 w-full text-left px-2.5 py-2 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-800/50 rounded-xl transition-all cursor-pointer"
               >
                 <HelpCircle className="w-4 h-4 text-zinc-400 dark:text-zinc-500" />
-                <span>Documentation / Help</span>
+                <span className={helpClicked ? "text-[#1877f2]" : ""}>
+                  {helpClicked ? "Help: support@circle.com" : "Documentation / Help"}
+                </span>
               </button>
             </div>
           )}

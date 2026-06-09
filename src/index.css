@@ -13,6 +13,37 @@
   font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
 }
 
+/* Shimmer Animation for elegant skeleton placeholders */
+@keyframes shimmer {
+  0% {
+    background-position: -1200px 0;
+  }
+  100% {
+    background-position: 1200px 0;
+  }
+}
+
+.shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(
+    to right,
+    #f4f4f5 10%,
+    #e4e4e7 20%,
+    #f4f4f5 40%
+  );
+  background-size: 1200px 100%;
+}
+
+.dark .shimmer {
+  background: linear-gradient(
+    to right,
+    #18181b 10%,
+    #27272a 20%,
+    #18181b 40%
+  );
+  background-size: 1200px 100%;
+}
+
 /* Custom Webkit scrollbars styling for fluid desktop layouts */
 .scrollbar-none::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
