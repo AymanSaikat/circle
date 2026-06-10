@@ -225,12 +225,33 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
         </div>
 
-        {/* Bottom Section - isolated with ProfileDropdown menu */}
-        <div className="relative pt-6 border-t border-zinc-100 dark:border-zinc-900/60 flex flex-col gap-4">
-          <ProfileDropdown 
-            onOpenProfileSetup={onOpenProfileSetup} 
-            onNavigateToTab={handleTabClick} 
-          />
+        {/* Bottom Section - explicit profile and utilities */}
+        <div className="relative pt-4 border-t border-zinc-100 dark:border-zinc-900/60 flex flex-col gap-2">
+          {/* Quick theme toggler in sidebar */}
+          <button
+            onClick={toggleTheme}
+            className="flex items-center justify-center xl:justify-start gap-3.5 px-3 xl:px-4 py-3 rounded-xl text-xs font-bold tracking-wide text-zinc-500 dark:text-zinc-400 hover:text-amber-500 dark:hover:text-amber-400 hover:bg-zinc-100/50 dark:hover:bg-zinc-900/40 transition-all select-none cursor-pointer"
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          >
+            {theme === 'dark' ? <Sun className="w-[17px] h-[17px] shrink-0" /> : <Moon className="w-[17px] h-[17px] shrink-0" />}
+            <span className="hidden xl:inline">{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+          </button>
+          
+          <button
+            onClick={logOut}
+            className="flex items-center justify-center xl:justify-start gap-3.5 px-3 xl:px-4 py-3 rounded-xl text-xs font-bold tracking-wide text-zinc-500 dark:text-zinc-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-all select-none cursor-pointer"
+            title="Log Out"
+          >
+            <LogOut className="w-[17px] h-[17px] shrink-0" />
+            <span className="hidden xl:inline">Log Out</span>
+          </button>
+
+          <div className="mt-2 text-center flex justify-center">
+            <ProfileDropdown 
+              onOpenProfileSetup={onOpenProfileSetup} 
+              onNavigateToTab={handleTabClick} 
+            />
+          </div>
         </div>
       </aside>
 
