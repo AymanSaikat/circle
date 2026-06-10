@@ -24,6 +24,9 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { ProfileDropdown } from './ProfileDropdown';
 
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { db } from '../firebaseClient';
+
 interface NavbarProps {
   currentTab: string;
   setCurrentTab: (tab: string) => void;
@@ -45,7 +48,23 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [metaClicked, setMetaClicked] = useState(false);
   const [helpClicked, setHelpClicked] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
   const moreMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!profile) return;
+    const q = query(
+      collection(db, 'messages'),
+      where('receiverId', '==', profile.id)
+    );
+    const unsub = onSnapshot(q, (snap) => {
+      const count = snap.docs.filter(doc => doc.data().isRead === false).length;
+      setUnreadCount(count);
+    }, (err) => {
+      console.error('Failed to subscribe to unread messages count', err);
+    });
+    return unsub;
+  }, [profile]);
 
   const handleCopyLink = () => {
     if (!profile) return;
@@ -139,13 +158,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="hidden xl:flex flex-1 items-center justify-between">
                 <span>Messages</span>
                 {/* Dynamic vibrant red notification badge */}
-                <div className="bg-red-500 dark:bg-red-600 text-white font-mono text-[9px] font-extrabold px-1.5 py-0.5 rounded-full leading-none flex items-center justify-center animate-pulse shadow-xs">
-                  4
+                {unreadCount > 0 && (
+                  <div className="bg-red-500 dark:bg-red-600 text-white font-mono text-[9px] font-extrabold px-1.5 py-0.5 rounded-full leading-none flex items-center justify-center animate-pulse shadow-xs">
+                    {unreadCount}
+                  </div>
+                )}
+              </div>
+              {unreadCount > 0 && (
+                <div className="xl:hidden absolute top-1.5 right-1.5 bg-red-500 text-white font-mono text-[7px] font-extrabold w-3.5 h-3.5 rounded-full flex items-center justify-center animate-pulse">
+                  {unreadCount}
                 </div>
-              </div>
-              <div className="xl:hidden absolute top-1.5 right-1.5 bg-red-500 text-white font-mono text-[7px] font-extrabold w-3.5 h-3.5 rounded-full flex items-center justify-center animate-pulse">
-                4
-              </div>
+              )}
             </button>
 
             <button
@@ -213,7 +236,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
 
       {/* ==================== SCREEN HEADER FOR MOBILE VIEW ==================== */}
-      <header className="flex md:hidden items-center justify-between bg-white dark:bg-zinc-950 border-b border-zinc-100 dark:border-zinc-900/60 px-4 py-3 sticky top-0 z-20 select-none">
+      <header className="flex md:hidden items-center justify-between bg-white dark:bg-zinc-950 border-b border-zinc-100 dark:border-zinc-900/60 px-4 py-3 sticky top-0 z-40 select-none">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-lg bg-zinc-900 dark:bg-zinc-50 flex items-center justify-center font-extrabold text-white dark:text-zinc-950 text-xs shadow-xs">
             C
@@ -228,18 +251,27 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             id="mobile-header-theme-toggle"
             onClick={toggleTheme}
-            className="p-1.5 rounded-lg text-zinc-400 focus:outline-none cursor-pointer"
+            className="p-2 rounded-lg text-zinc-400 focus:outline-none cursor-pointer active:scale-95 transition-transform"
           >
-            {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4 text-zinc-650" />}
+            {theme === 'dark' ? <Sun className="w-5 h-5 text-amber-500" /> : <Moon className="w-5 h-5 text-zinc-600" />}
           </button>
           
           {/* Settings Trigger for Mobile */}
           <button
             id="mobile-header-settings"
             onClick={onOpenProfileSetup}
-            className="p-1.5 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white cursor-pointer"
+            className="p-2 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white cursor-pointer active:scale-95 transition-transform"
           >
-            <Settings className="w-4 h-4" />
+            <Settings className="w-5 h-5" />
+          </button>
+
+          {/* Logout Trigger for Mobile */}
+          <button
+            id="mobile-header-logout"
+            onClick={logOut}
+            className="p-2 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-red-500 dark:hover:text-red-400 cursor-pointer active:scale-95 transition-transform"
+          >
+            <LogOut className="w-5 h-5" />
           </button>
         </div>
       </header>
@@ -282,10 +314,12 @@ export const Navbar: React.FC<NavbarProps> = ({
         >
           <MessageSquare className="w-5 h-5" />
           {/* Dynamic dynamic tiny notification dot on mobile */}
-          <span className="absolute top-2.5 right-2.5 flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-          </span>
+          {unreadCount > 0 && (
+            <span className="absolute top-2.5 right-2.5 flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+            </span>
+          )}
         </button>
 
         <button

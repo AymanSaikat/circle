@@ -25,6 +25,7 @@ interface DirectMessage {
   mediaUrl?: string; // Optional image attachment
   isVoiceMemo?: boolean; // Optional voice note
   isLocation?: boolean; // Optional location marker
+  isRead?: boolean; // Read status
 }
 
 const ATTACHMENT_PRESETS = [
@@ -189,6 +190,11 @@ export const Messages: React.FC = () => {
 
         if (belongsToChat) {
           list.push({ id: d.id, ...data } as DirectMessage);
+          
+          // Mark as read if user is the receiver and it's not read
+          if (data.receiverId === user.uid && data.isRead !== true) {
+            updateDoc(doc(db, 'messages', d.id), { isRead: true }).catch(console.error);
+          }
         }
       });
 
@@ -257,7 +263,8 @@ export const Messages: React.FC = () => {
           receiverAvatar: profile?.avatarUrl || `https://api.dicebear.com/7.x/bottts/svg?seed=${user!.uid}`,
           text: randomQuote,
           participants: [user!.uid, activeRecipient.id],
-          createdAt: serverTimestamp()
+          createdAt: serverTimestamp(),
+          isRead: false
         });
       } catch (err) {
         console.error("Auto responder failed to publish message", err);
@@ -286,7 +293,8 @@ export const Messages: React.FC = () => {
         receiverAvatar: activeRecipient.avatarUrl || `https://api.dicebear.com/7.x/bottts/svg?seed=${activeRecipient.id}`,
         text: textPayload,
         participants: [user.uid, activeRecipient.id],
-        createdAt: serverTimestamp()
+        createdAt: serverTimestamp(),
+        isRead: false
       });
       triggerSimulatedResponse(textPayload);
     } catch (err) {
@@ -312,7 +320,8 @@ export const Messages: React.FC = () => {
         receiverName: activeRecipient.displayName || 'Circle Companion',
         receiverAvatar: activeRecipient.avatarUrl || `https://api.dicebear.com/7.x/bottts/svg?seed=${activeRecipient.id}`,
         participants: [user.uid, activeRecipient.id],
-        createdAt: serverTimestamp()
+        createdAt: serverTimestamp(),
+        isRead: false
       };
 
       if (type === 'photo' && payload) {
